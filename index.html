@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<!--
-Created using JS Bin
-http://jsbin.com
-
-Copyright (c) 2026 by anonymous (http://jsbin.com/tobegosofi/2/edit)
-
-Released under the MIT license: http://jsbin.mit-license.org
--->
-<meta name="robots" content="noindex">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,11 +23,10 @@ Released under the MIT license: http://jsbin.mit-license.org
 </head>
 <body class="text-gray-900 overflow-x-hidden">
 
-    <!-- NAVIGATION -->
     <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#F5EDE6]">
         <div class="max-w-screen-xl mx-auto px-4 h-20 flex items-center justify-between">
             <div class="cursor-pointer flex items-center gap-3" onclick="showPage('home')">
-                <img src="https://img.sanishtech.com/u/8cb90accd3a5d9a7b46fed962d478bee.png" alt="Direct Deals Logo" class="w-12 h-12 rounded-full object-cover shadow-sm">
+                <img src="https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/1774086383545.png" alt="Direct Deals Logo" class="w-12 h-12 rounded-full object-cover shadow-sm">
                 <div class="flex flex-col">
                     <span class="text-xl font-extrabold tracking-tighter leading-none">DIRECT DEALS</span>
                     <span class="text-[9px] font-bold text-accent tracking-[2px] uppercase">Curated Excellence</span>
@@ -65,7 +55,6 @@ Released under the MIT license: http://jsbin.mit-license.org
         </div>
     </nav>
 
-    <!-- PAGE: HOME -->
     <div id="home" class="page active">
         <section class="relative h-[80vh] flex items-center px-4 overflow-hidden">
             <div class="absolute inset-0 z-0">
@@ -95,7 +84,6 @@ Released under the MIT license: http://jsbin.mit-license.org
         </section>
     </div>
 
-    <!-- PAGE: CATALOG -->
     <div id="catalog" class="page py-20 px-4 max-w-screen-xl mx-auto">
         <div class="text-center mb-16">
             <h1 class="text-5xl font-black tracking-tighter mb-8" id="catalogTitle">Explore All</h1>
@@ -110,17 +98,15 @@ Released under the MIT license: http://jsbin.mit-license.org
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10" id="catalogGrid"></div>
     </div>
 
-    <!-- PAGE: PRODUCT DETAIL -->
     <div id="productDetail" class="page"></div>
 
-    <!-- PAGE: ABOUT -->
     <div id="about" class="page py-24 px-4 max-w-screen-md mx-auto text-center">
-        <img src="https://img.sanishtech.com/u/8cb90accd3a5d9a7b46fed962d478bee.png" class="w-24 h-24 rounded-full mx-auto shadow-xl mb-8">
+        <img src="https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/1774086383545.png" class="w-24 h-24 rounded-full mx-auto shadow-xl mb-8">
         <h1 class="text-5xl font-black mb-6 tracking-tighter">About Direct Deals</h1>
         <p class="text-xl text-gray-500 leading-relaxed mb-12">We specialize in identifying the highest-quality lifestyle products viral on Pinterest. Our mission is to verify every deal for quality, performance, and price before recommending it to you.</p>
         <div class="bg-beige/30 p-10 rounded-[40px] border border-beige text-left">
             <h3 class="font-black text-2xl mb-4 text-accent">Contact Information</h3>
-            <p class="text-gray-600 mb-2"><strong>Email:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a7d6d2cec4cccbced4d3cec9c0d7d5c8e7c0cac6cecb89c4c8ca">[email&#160;protected]</a></p>
+            <p class="text-gray-600 mb-2"><strong>Email:</strong> quicklistingpro<span>@</span>gmail.com</p>
             <p class="text-gray-600"><strong>Verification:</strong> Curated Selection Team</p>
             <div class="mt-6 flex gap-4">
                 <a href="https://pin.it/cwOs1jyjO" target="_blank" class="bg-red-600 text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg">Visit Pinterest</a>
@@ -128,13 +114,12 @@ Released under the MIT license: http://jsbin.mit-license.org
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer class="bg-black text-white pt-24 pb-12 px-4 mt-24">
         <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left">
             <div>
-                <img src="https://img.sanishtech.com/u/8cb90accd3a5d9a7b46fed962d478bee.png" class="w-16 h-16 rounded-full mb-6 mx-auto md:mx-0">
+                <img src="https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/1774086383545.png" class="w-16 h-16 rounded-full mb-6 mx-auto md:mx-0">
                 <h2 class="text-3xl font-black tracking-tighter uppercase">DIRECT DEALS</h2>
-                <p class="text-gray-500 mt-2 font-medium"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b5c4c0dcd6ded9dcc6c1dcdbd2c5c7daf5d2d8d4dcd99bd6dad8">[email&#160;protected]</a></p>
+                <p class="text-gray-500 mt-2 font-medium">quicklistingpro<span>@</span>gmail.com</p>
             </div>
             <div class="flex flex-col items-center md:items-end gap-6">
                 <a href="https://pin.it/cwOs1jyjO" target="_blank" class="bg-red-600 text-white px-8 py-3 rounded-full font-black text-xs tracking-widest hover:scale-105 transition-transform uppercase">FOLLOW ON PINTEREST</a>
@@ -143,7 +128,7 @@ Released under the MIT license: http://jsbin.mit-license.org
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         const PRODUCTS = [
             // @a@ BEAUTY PRODUCTS
             {
@@ -153,7 +138,7 @@ Released under the MIT license: http://jsbin.mit-license.org
                 hook: 'Overnight Saffron & Rosehip magic ✨',
                 price: '₹1,399',
                 old: '₹1,875',
-                img: 'https://img.sanishtech.com/u/6e39e2a55ac6cc6567bb614e4f6040e3.jpg',
+                img: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/NIGHTRECOVERYSERUM_2.jpg',
                 prob: 'Waking up with dull skin, patches, or visible fine lines?',
                 sol: 'A premium Ayurvedic blend of Saffron and Rosehip that penetrates deep into the skin overnight to restore moisture and radiance.',
                 perks: ['Overnight Cell Repair 🌙', 'Pure Kashmiri Saffron 🏵️', 'Deep Dewy Glow 💧'],
@@ -167,7 +152,7 @@ Released under the MIT license: http://jsbin.mit-license.org
                 hook: 'Instant glass skin radiance 🌟',
                 price: '₹1,499',
                 old: '₹1,999',
-                img: 'https://img.sanishtech.com/u/bc2a869c5f2f0eda7f9d336772808a14.jpg',
+                img: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/GLOWBOOSTINGFACEOIL_5.jpg',
                 prob: 'Struggling with uneven texture and a lack of natural brilliance?',
                 sol: 'Our Glow Boosting oil sinks in instantly without greasiness, creating a velvet-soft finish that lasts all day.',
                 perks: ['Non-Greasy Shine ✨', 'Cold-Pressed Purity 🌱', 'Texture Smoothing 🌟'],
@@ -181,7 +166,7 @@ Released under the MIT license: http://jsbin.mit-license.org
                 hook: 'Zero white cast, total protection ☀️',
                 price: '₹1,149',
                 old: '₹1,499',
-                img: 'https://img.sanishtech.com/u/eef8abca2f264c6bcb2744ca4ef5a2df.jpg',
+                img: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/SUNPROTECTSUNSCREEN_294960ca-8a50-4458-ad5d-6906ebf3f864.jpg',
                 prob: 'Tired of heavy, sticky sunscreens that leave a white cast and cause breakouts?',
                 sol: 'High protection SPF 50 PA++++ designed to feel weightless and invisible on all Indian skin tones.',
                 perks: ['Zero White Cast 🫧', 'SPF 50 PA++++ 🛡️', 'Featherlight Feel ☁️'],
@@ -289,4 +274,3 @@ Released under the MIT license: http://jsbin.mit-license.org
     </script>
 </body>
 </html>
-
