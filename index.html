@@ -237,9 +237,10 @@
 
         function renderProduct(id) {
             const p = PRODUCTS.find(x => x.id === id);
+            if(!p) return;
             document.getElementById('productDetail').innerHTML = `
                 <section class="max-w-screen-xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-16 items-start">
-                    <div class="sticky top-24">
+                    <div class="relative">
                         <img src="${p.img}" class="rounded-[40px] shadow-2xl w-full aspect-square object-cover">
                     </div>
                     <div class="md:pt-10">
@@ -266,9 +267,18 @@
         function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
         
         window.onload = () => {
+            // 1. Initial homepage load
             const f = document.getElementById('featuredGrid');
             if(f) {
                 PRODUCTS.slice(0,3).forEach(p => f.innerHTML += renderCard(p));
+            }
+
+            // 2. THE RECEPTIONIST: Automatic Redirect for Pinterest Pins
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            
+            if (productId) {
+                renderProduct(productId);
             }
         };
     </script>
