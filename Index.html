@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2026 by anonymous (http://jsbin.com/tobegosofi/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Deals | Premium Beauty & Lifestyle Curation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; background-color: #fff; }
+        .bg-beige { background-color: #F5EDE6; }
+        .text-accent { color: #E6CBA8; }
+        .bg-accent { background-color: #E6CBA8; }
+        .bg-soft-pink { background-color: #FADADD; }
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-marquee { display: flex; white-space: nowrap; animation: marquee 30s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .filter-btn.active { background-color: black; color: white; border-color: black; }
+        .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="text-gray-900 overflow-x-hidden">
+
+    <!-- NAVIGATION -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#F5EDE6]">
+        <div class="max-w-screen-xl mx-auto px-4 h-20 flex items-center justify-between">
+            <div class="cursor-pointer flex items-center gap-3" onclick="showPage('home')">
+                <img src="https://img.sanishtech.com/u/8cb90accd3a5d9a7b46fed962d478bee.png" alt="Direct Deals Logo" class="w-12 h-12 rounded-full object-cover shadow-sm">
+                <div class="flex flex-col">
+                    <span class="text-xl font-extrabold tracking-tighter leading-none">DIRECT DEALS</span>
+                    <span class="text-[9px] font-bold text-accent tracking-[2px] uppercase">Curated Excellence</span>
+                </div>
+            </div>
+            <div class="hidden lg:flex gap-8 text-xs font-bold uppercase tracking-widest text-gray-400">
+                <button onclick="showPage('home')" class="hover:text-black transition-colors">Home</button>
+                <button onclick="showCatalog('All')" class="hover:text-black transition-colors">All Deals</button>
+                <button onclick="showCatalog('Beauty')" class="hover:text-black transition-colors">Beauty</button>
+                <button onclick="showCatalog('Fashion')" class="hover:text-black transition-colors">Fashion</button>
+                <button onclick="showCatalog('Decor')" class="hover:text-black transition-colors">Home Decor</button>
+                <button onclick="showCatalog('Digital')" class="hover:text-black transition-colors">Digital Deals</button>
+            </div>
+            <a href="https://pin.it/cwOs1jyjO" target="_blank" class="hidden sm:flex bg-red-600 text-white px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-transform items-center gap-2">
+                Follow <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.27 2.66 7.9 6.44 9.35-.09-.8-.17-2.01.03-2.87.18-.78 1.17-4.97 1.17-4.97s-.3-.6-.3-1.48c0-1.39.81-2.43 1.81-2.43.85 0 1.27.64 1.27 1.41 0 .86-.55 2.14-.83 3.33-.24 1 .5 1.81 1.48 1.81 1.78 0 3.15-1.88 3.15-4.59 0-2.4-1.72-4.08-4.19-4.08-2.85 0-4.53 2.14-4.53 4.35 0 .86.33 1.79.74 2.29.08.1.09.19.07.27-.07.3-.24.98-.27 1.1-.04.16-.14.2-.32.11-1.2-.56-1.95-2.31-1.95-3.71 0-3.02 2.2-5.79 6.32-5.79 3.32 0 5.9 2.37 5.9 5.53 0 3.3-2.08 5.96-4.97 5.96-.97 0-1.88-.5-2.19-1.1l-.6 2.27c-.22.83-.8 1.87-1.19 2.51.9.27 1.86.42 2.85.42 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+            </a>
+            <button class="lg:hidden p-2 text-gray-500" onclick="toggleMenu()">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-[#F5EDE6] p-8 space-y-4 shadow-2xl text-center">
+            <button onclick="showPage('home')" class="block w-full font-black text-xl">Home</button>
+            <button onclick="showCatalog('All')" class="block w-full font-black text-xl">Shop All Deals</button>
+            <button onclick="showPage('about')" class="block w-full font-black text-xl">About Direct Deals</button>
+            <a href="https://pin.it/cwOs1jyjO" target="_blank" class="block w-full bg-red-600 text-white py-4 rounded-2xl font-black uppercase text-sm">Follow on Pinterest</a>
+        </div>
+    </nav>
+
+    <!-- PAGE: HOME -->
+    <div id="home" class="page active">
+        <section class="relative h-[80vh] flex items-center px-4 overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&q=80&w=1600" class="w-full h-full object-cover opacity-30">
+                <div class="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
+            </div>
+            <div class="relative z-10 max-w-2xl">
+                <span class="inline-block px-4 py-1.5 bg-soft-pink text-[#d48c93] text-[10px] font-black uppercase tracking-[3px] rounded-full mb-6">Handpicked Essentials ✨</span>
+                <h1 class="text-6xl md:text-8xl font-black text-gray-900 leading-[0.95] mb-8 tracking-tighter">Luxury Vibe.<br><span class="text-accent text-shadow">Direct Deal.</span></h1>
+                <p class="text-lg text-gray-500 mb-10 max-w-md leading-relaxed">Discover high-performance skincare, trending fashion, and aesthetic home decor at verified market-low prices.</p>
+                <button onclick="showCatalog('All')" class="bg-black text-white px-12 py-5 rounded-full font-bold flex items-center gap-3 hover:bg-gray-800 transition-all shadow-xl hover:-translate-y-1">Explore Collections <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+            </div>
+        </section>
+
+        <div class="bg-black text-white py-4 overflow-hidden border-y border-black">
+            <div class="animate-marquee gap-16 text-[10px] font-black uppercase tracking-[4px] items-center">
+                <span>Pinterest Trending • Beauty Secrets • Fashion Finds • Home Aesthetics • Digital Masterclasses • Pinterest Trending • Beauty Secrets • Fashion Finds • Home Aesthetics</span>
+            </div>
+        </div>
+
+        <section class="py-24 px-4 max-w-screen-xl mx-auto">
+            <div class="flex justify-between items-end mb-16">
+                <h2 class="text-4xl font-black tracking-tighter">Viral Must-Haves</h2>
+                <button onclick="showCatalog('All')" class="text-accent font-black items-center gap-2 group hidden sm:flex">View All <svg class="group-hover:translate-x-1 transition-transform" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m9 18 6-6-6-6"/></svg></button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10" id="featuredGrid"></div>
+        </section>
+    </div>
+
+    <!-- PAGE: CATALOG -->
+    <div id="catalog" class="page py-20 px-4 max-w-screen-xl mx-auto">
+        <div class="text-center mb-16">
+            <h1 class="text-5xl font-black tracking-tighter mb-8" id="catalogTitle">Explore All</h1>
+            <div class="flex flex-wrap justify-center gap-3">
+                <button onclick="showCatalog('All')" class="filter-btn active px-6 py-2 rounded-full border border-gray-200 text-xs font-bold uppercase tracking-widest transition-all">All</button>
+                <button onclick="showCatalog('Beauty')" class="filter-btn px-6 py-2 rounded-full border border-gray-200 text-xs font-bold uppercase tracking-widest transition-all">Beauty</button>
+                <button onclick="showCatalog('Fashion')" class="filter-btn px-6 py-2 rounded-full border border-gray-200 text-xs font-bold uppercase tracking-widest transition-all">Fashion</button>
+                <button onclick="showCatalog('Decor')" class="filter-btn px-6 py-2 rounded-full border border-gray-200 text-xs font-bold uppercase tracking-widest transition-all">Decor</button>
+                <button onclick="showCatalog('Digital')" class="filter-btn px-6 py-2 rounded-full border border-gray-200 text-xs font-bold uppercase tracking-widest transition-all">Digital</button>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10" id="catalogGrid"></div>
+    </div>
+
+    <!-- PAGE: PRODUCT DETAIL -->
+    <div id="productDetail" class="page"></div>
+
+    <!-- PAGE: ABOUT -->
+    <div id="about" class="page py-24 px-4 max-w-screen-md mx-auto text-center">
+        <img src="https://img.sanishtech.com/u/8cb90accd3a5d9a7b46fed962d478bee.png" class="w-24 h-24 rounded-full mx-auto shadow-xl mb-8">
+        <h1 class="text-5xl font-black mb-6 tracking-tighter">About Direct Deals</h1>
+        <p class="text-xl text-gray-500 leading-relaxed mb-12">We specialize in identifying the highest-quality lifestyle products viral on Pinterest. Our mission is to verify every deal for quality, performance, and price before recommending it to you.</p>
+        <div class="bg-beige/30 p-10 rounded-[40px] border border-beige text-left">
+            <h3 class="font-black text-2xl mb-4 text-accent">Contact Information</h3>
+            <p class="text-gray-600 mb-2"><strong>Email:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a7d6d2cec4cccbced4d3cec9c0d7d5c8e7c0cac6cecb89c4c8ca">[email&#160;protected]</a></p>
+            <p class="text-gray-600"><strong>Verification:</strong> Curated Selection Team</p>
+            <div class="mt-6 flex gap-4">
+                <a href="https://pin.it/cwOs1jyjO" target="_blank" class="bg-red-600 text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg">Visit Pinterest</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white pt-24 pb-12 px-4 mt-24">
+        <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left">
+            <div>
+                <img src="https://img.sanishtech.com/u/8cb90accd3a5d9a7b46fed962d478bee.png" class="w-16 h-16 rounded-full mb-6 mx-auto md:mx-0">
+                <h2 class="text-3xl font-black tracking-tighter uppercase">DIRECT DEALS</h2>
+                <p class="text-gray-500 mt-2 font-medium"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b5c4c0dcd6ded9dcc6c1dcdbd2c5c7daf5d2d8d4dcd99bd6dad8">[email&#160;protected]</a></p>
+            </div>
+            <div class="flex flex-col items-center md:items-end gap-6">
+                <a href="https://pin.it/cwOs1jyjO" target="_blank" class="bg-red-600 text-white px-8 py-3 rounded-full font-black text-xs tracking-widest hover:scale-105 transition-transform uppercase">FOLLOW ON PINTEREST</a>
+                <span class="text-[10px] text-gray-600 font-black tracking-[4px] uppercase">© 2024 DIRECT DEALS • ALL RIGHTS RESERVED</span>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        const PRODUCTS = [
+            // @a@ BEAUTY PRODUCTS
+            {
+                id: 'night-serum',
+                name: 'Night Recovery Serum Elixir',
+                cat: 'Beauty',
+                hook: 'Overnight Saffron & Rosehip magic ✨',
+                price: '₹1,399',
+                old: '₹1,875',
+                img: 'https://img.sanishtech.com/u/6e39e2a55ac6cc6567bb614e4f6040e3.jpg',
+                prob: 'Waking up with dull skin, patches, or visible fine lines?',
+                sol: 'A premium Ayurvedic blend of Saffron and Rosehip that penetrates deep into the skin overnight to restore moisture and radiance.',
+                perks: ['Overnight Cell Repair 🌙', 'Pure Kashmiri Saffron 🏵️', 'Deep Dewy Glow 💧'],
+                aff: 'https://bitli.in/A407aX7',
+                cta: 'CLAIM DEAL NOW'
+            },
+            {
+                id: 'glow-oil',
+                name: 'Glow Boosting Face Oil',
+                cat: 'Beauty',
+                hook: 'Instant glass skin radiance 🌟',
+                price: '₹1,499',
+                old: '₹1,999',
+                img: 'https://img.sanishtech.com/u/bc2a869c5f2f0eda7f9d336772808a14.jpg',
+                prob: 'Struggling with uneven texture and a lack of natural brilliance?',
+                sol: 'Our Glow Boosting oil sinks in instantly without greasiness, creating a velvet-soft finish that lasts all day.',
+                perks: ['Non-Greasy Shine ✨', 'Cold-Pressed Purity 🌱', 'Texture Smoothing 🌟'],
+                aff: 'https://bitli.in/IO9gWvd',
+                cta: 'CLAIM DEAL NOW'
+            },
+            {
+                id: 'sunscreen',
+                name: 'Sun Protect Sunscreen SPF 50',
+                cat: 'Beauty',
+                hook: 'Zero white cast, total protection ☀️',
+                price: '₹1,149',
+                old: '₹1,499',
+                img: 'https://img.sanishtech.com/u/eef8abca2f264c6bcb2744ca4ef5a2df.jpg',
+                prob: 'Tired of heavy, sticky sunscreens that leave a white cast and cause breakouts?',
+                sol: 'High protection SPF 50 PA++++ designed to feel weightless and invisible on all Indian skin tones.',
+                perks: ['Zero White Cast 🫧', 'SPF 50 PA++++ 🛡️', 'Featherlight Feel ☁️'],
+                aff: 'https://bitli.in/E2CAxuE',
+                cta: 'CLAIM DEAL NOW'
+            },
+            // @b@ FASHION PRODUCTS
+            
+            // @c@ HOME DECOR PRODUCTS
+            
+            // @d@ DIGITAL/DIGISTORE24 PRODUCTS
+        ];
+
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(id);
+            if(target) target.classList.add('active');
+            window.scrollTo(0,0);
+            document.getElementById('mobileMenu').classList.add('hidden');
+        }
+
+        function showCatalog(category) {
+            const grid = document.getElementById('catalogGrid');
+            const title = document.getElementById('catalogTitle');
+            grid.innerHTML = '';
+            title.innerText = category === 'All' ? 'Our Collections' : category + ' Selection';
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.innerText === category.toUpperCase() || (category === 'All' && btn.innerText === 'ALL'));
+            });
+
+            const filtered = category === 'All' ? PRODUCTS : PRODUCTS.filter(p => p.cat === category);
+            
+            if(filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-20 text-center text-gray-400 font-medium italic">New deals in this category coming soon...</div>`;
+            } else {
+                filtered.forEach(p => {
+                    grid.innerHTML += renderCard(p);
+                });
+            }
+            showPage('catalog');
+        }
+
+        function renderCard(p) {
+            const discount = Math.round(((parseInt(p.old.replace('₹','').replace(',','')) - parseInt(p.price.replace('₹','').replace(',',''))) / parseInt(p.old.replace('₹','').replace(',',''))) * 100);
+            return `
+            <div class="group cursor-pointer bg-white rounded-[40px] border border-[#F5EDE6] overflow-hidden hover:shadow-2xl transition-all flex flex-col h-full" onclick="renderProduct('${p.id}')">
+                <div class="relative aspect-square overflow-hidden bg-gray-50">
+                    <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute top-4 left-4 flex flex-col gap-2">
+                        <span class="bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest">${p.cat}</span>
+                        <span class="bg-black text-white px-2 py-1 rounded-full text-[9px] font-black uppercase">-${discount}% OFF</span>
+                    </div>
+                </div>
+                <div class="p-8 flex flex-col flex-grow text-center">
+                    <h3 class="font-black text-xl mb-1">${p.name}</h3>
+                    <p class="text-gray-400 text-xs italic mb-6 leading-relaxed">"${p.hook}"</p>
+                    <div class="mt-auto flex items-center justify-between">
+                        <div class="flex flex-col items-start">
+                            <span class="text-gray-300 line-through text-xs font-bold leading-none">${p.old}</span>
+                            <span class="font-black text-accent text-2xl tracking-tighter">${p.price}</span>
+                        </div>
+                        <div class="bg-black text-white p-3 rounded-2xl group-hover:bg-accent transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        function renderProduct(id) {
+            const p = PRODUCTS.find(x => x.id === id);
+            document.getElementById('productDetail').innerHTML = `
+                <section class="max-w-screen-xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-16 items-start">
+                    <div class="sticky top-24">
+                        <img src="${p.img}" class="rounded-[40px] shadow-2xl w-full aspect-square object-cover">
+                    </div>
+                    <div class="md:pt-10">
+                        <span class="text-accent font-black text-xs uppercase tracking-[5px] mb-4 block">${p.cat} Essential</span>
+                        <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tighter leading-[0.9]">${p.name}</h1>
+                        <p class="text-2xl text-gray-300 italic mb-12">"${p.hook}"</p>
+                        <div class="bg-beige p-10 rounded-[40px] border border-beige mb-12">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-gray-400 line-through text-2xl font-bold">${p.old}</span>
+                                <span class="bg-accent text-white px-4 py-1 rounded-full text-[10px] font-black tracking-widest uppercase">Verified Deal</span>
+                            </div>
+                            <div class="text-6xl font-black mb-10 tracking-tighter">${p.price}</div>
+                            <a href="${p.aff}" target="_blank" class="block w-full py-6 bg-black text-white text-center rounded-3xl font-black text-xl hover:scale-[1.02] active:scale-95 transition-transform shadow-2xl uppercase tracking-tighter">${p.cta || 'CLAIM DEAL NOW'}</a>
+                            <p class="text-center text-[10px] font-black text-gray-400 mt-6 uppercase tracking-[3px]">Secure Affiliate Link • official Store</p>
+                        </div>
+                        <h2 class="text-2xl font-black mb-4">The Solution:</h2>
+                        <p class="text-xl text-gray-500 italic mb-8 leading-relaxed">"${p.sol}"</p>
+                        <div class="space-y-4">${p.perks.map(perk => `<div class="flex items-center gap-4 text-lg font-bold"><div class="text-green-500 bg-green-50 p-2 rounded-full"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div> ${perk}</div>`).join('')}</div>
+                    </div>
+                </section>`;
+            showPage('productDetail');
+        }
+
+        function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
+        
+        window.onload = () => {
+            const f = document.getElementById('featuredGrid');
+            if(f) {
+                PRODUCTS.slice(0,3).forEach(p => f.innerHTML += renderCard(p));
+            }
+        };
+    </script>
+</body>
+</html>
+
