@@ -45,7 +45,6 @@
     <nav class="sticky top-0 z-50 glass-card transition-all duration-300">
         <div class="max-w-screen-xl mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
             <div class="cursor-pointer flex items-center gap-3" onclick="navigate('home')">
-                <!-- YOUR CUSTOM LOGO -->
                 <img src="https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/1774086383545.png" alt="Direct Deals Logo" class="w-12 h-12 rounded-full object-cover shadow-sm border border-gray-100">
                 <div class="flex flex-col">
                     <span class="text-xl font-extrabold tracking-tight leading-none">Direct Deals</span>
@@ -58,14 +57,14 @@
             </a>
         </div>
 
-        <!-- TOP QUICK NAVIGATION (Mobile Friendly Swipe Bar) -->
+        <!-- TOP QUICK NAVIGATION -->
         <div class="border-t border-gray-100 bg-white/80 backdrop-blur-md">
             <div class="max-w-screen-xl mx-auto px-4 py-3 flex gap-3 overflow-x-auto hide-scrollbar items-center">
-                <span class="text-xs font-black uppercase tracking-widest text-gray-400 mr-2 shrink-0">Quick Nav:</span>
+                <span class="text-xs font-black uppercase tracking-widest text-gray-400 mr-2 shrink-0">Explore:</span>
                 <button onclick="navigate('home')" class="shrink-0 px-4 py-2 bg-gray-100 text-gray-800 rounded-full text-sm font-bold hover:bg-gray-200 transition-colors">🏠 Home</button>
-                <button onclick="scrollToSection('glow')" class="shrink-0 px-4 py-2 bg-pink-50 text-pink-700 border border-pink-100 rounded-full text-sm font-bold hover:bg-pink-100 transition-colors">✨ Skincare Routines</button>
-                <button onclick="scrollToSection('style')" class="shrink-0 px-4 py-2 bg-blue-50 text-blue-700 border border-blue-100 rounded-full text-sm font-bold hover:bg-blue-100 transition-colors">👗 Style Guides</button>
-                <button onclick="scrollToSection('earn')" class="shrink-0 px-4 py-2 bg-green-50 text-green-700 border border-green-100 rounded-full text-sm font-bold hover:bg-green-100 transition-colors">💸 Earn Online</button>
+                <button onclick="navigate('category', 'glow')" class="shrink-0 px-4 py-2 bg-pink-50 text-pink-700 border border-pink-100 rounded-full text-sm font-bold hover:bg-pink-100 transition-colors">✨ Skincare</button>
+                <button onclick="navigate('category', 'style')" class="shrink-0 px-4 py-2 bg-blue-50 text-blue-700 border border-blue-100 rounded-full text-sm font-bold hover:bg-blue-100 transition-colors">👗 Style</button>
+                <button onclick="navigate('category', 'earn')" class="shrink-0 px-4 py-2 bg-green-50 text-green-700 border border-green-100 rounded-full text-sm font-bold hover:bg-green-100 transition-colors">💸 Earn Online</button>
             </div>
         </div>
     </nav>
@@ -73,60 +72,132 @@
     <!-- MAIN CONTAINER -->
     <main id="app-container">
         
-        <!-- HOME VIEW -->
-        <div id="home-view" class="view-section active">
+        <!-- ==================== HOME VIEW ==================== -->
+        <div id="home-view" class="view-section active pb-24">
             
             <!-- HERO SECTION -->
-            <section class="relative pt-16 pb-24 px-4 overflow-hidden soft-gradient-bg">
+            <section class="relative pt-16 pb-20 px-4 overflow-hidden soft-gradient-bg">
                 <div class="relative z-10 max-w-4xl mx-auto text-center">
                     <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-gray-100 text-sm font-bold text-gray-700 mb-8">
                         <i data-lucide="sparkles" class="w-4 h-4 text-purple-500"></i>
-                        Used by 1,000+ smart shoppers
+                        Trusted by 1,000+ smart shoppers
                     </span>
                     <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900 leading-[1.1] mb-6">
-                        Glow Better. Shop Smarter. <br><span class="gradient-text">Live Better.</span>
+                        Shop Smarter. <br><span class="gradient-text">Live Better.</span>
                     </h1>
                     <p class="text-xl md:text-2xl text-gray-600 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
-                        Discover curated routines, trending products, and smart solutions that actually work.
+                        We find the viral trends and verify the quality so you don't have to. Your ultimate guide to a premium lifestyle.
                     </p>
                 </div>
             </section>
 
-            <!-- GLOW & SKINCARE -->
-            <section id="glow" class="py-20 px-4 max-w-screen-xl mx-auto border-t border-gray-100">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-black tracking-tighter mb-4">Glow & Skincare Secrets ✨</h2>
-                    <p class="text-xl text-gray-500">Step-by-step routines for your best skin yet.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="glow-grid">
-                    <!-- Populated by JS -->
+            <!-- ABOUT US / TRUST BUILDING SECTION -->
+            <section class="py-16 px-4 max-w-screen-xl mx-auto -mt-10 relative z-20">
+                <div class="bg-white rounded-[40px] shadow-2xl border border-gray-100 p-8 md:p-16">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-black tracking-tighter mb-4">Why Trust Direct Deals? 🤔</h2>
+                        <p class="text-lg text-gray-500 max-w-2xl mx-auto">We don't just list products; we curate solutions. Every routine and guide on this platform is heavily researched and verified for quality.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="p-6 bg-purple-50 rounded-3xl border border-purple-100 hover:-translate-y-2 transition-transform">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-purple-600">
+                                <i data-lucide="shield-check" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">100% Verified</h3>
+                            <p class="text-gray-600 text-sm">We only link to official stores and high-rated sellers. No fakes, no scams.</p>
+                        </div>
+                        <div class="p-6 bg-pink-50 rounded-3xl border border-pink-100 hover:-translate-y-2 transition-transform">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-pink-500">
+                                <i data-lucide="heart" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Tested Routines</h3>
+                            <p class="text-gray-600 text-sm">Products are good, but routines are better. We guide you step-by-step.</p>
+                        </div>
+                        <div class="p-6 bg-blue-50 rounded-3xl border border-blue-100 hover:-translate-y-2 transition-transform">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-blue-500">
+                                <i data-lucide="trending-up" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Market Low Prices</h3>
+                            <p class="text-gray-600 text-sm">We hunt for the best direct deals and discounts so you save your hard-earned money.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- STYLE & FASHION -->
-            <section id="style" class="py-20 px-4 max-w-screen-xl mx-auto bg-gray-50 rounded-[40px] mb-20">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-black tracking-tighter mb-4">Style That Stands Out 👗</h2>
-                    <p class="text-xl text-gray-500">Curated looks and aesthetic upgrades.</p>
+            <!-- CATEGORY HUBS (The "Dukaans") -->
+            <section class="py-16 px-4 max-w-screen-xl mx-auto">
+                <div class="flex items-center gap-3 mb-12 justify-center md:justify-start">
+                    <div class="w-3 h-8 gradient-bg rounded-full hidden md:block"></div>
+                    <h2 class="text-4xl font-black tracking-tighter text-center md:text-left">Explore Our Categories</h2>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="style-grid">
-                    <!-- Populated by JS -->
-                </div>
-            </section>
 
-            <!-- MAKE MONEY ONLINE -->
-            <section id="earn" class="py-20 px-4 max-w-screen-xl mx-auto mb-12">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-black tracking-tighter mb-4">Earn From Home 💸</h2>
-                    <p class="text-xl text-gray-500">Proven systems for beginners to start generating income.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="earn-grid">
-                    <!-- Populated by JS -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Glow & Skincare Category Card -->
+                    <div onclick="navigate('category', 'glow')" class="group cursor-pointer relative overflow-hidden rounded-[40px] shadow-lg hover:shadow-2xl transition-all h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1615397323201-382aeb196a60?q=80&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8 w-full">
+                            <span class="bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 inline-block">Popular</span>
+                            <h3 class="text-3xl font-black text-white mb-2">Skincare & Glow ✨</h3>
+                            <p class="text-gray-200 mb-6 text-sm">Step-by-step beauty routines & premium product recommendations.</p>
+                            <button class="bg-white text-black px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 group-hover:bg-pink-50 transition-colors">
+                                Open Category <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Style & Fashion Category Card -->
+                    <div onclick="navigate('category', 'style')" class="group cursor-pointer relative overflow-hidden rounded-[40px] shadow-lg hover:shadow-2xl transition-all h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8 w-full">
+                            <h3 class="text-3xl font-black text-white mb-2">Style & Fashion 👗</h3>
+                            <p class="text-gray-200 mb-6 text-sm">Curated looks, minimal outfits, and aesthetic upgrades.</p>
+                            <button class="bg-white text-black px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 group-hover:bg-blue-50 transition-colors">
+                                Open Category <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Earn Online Category Card -->
+                    <div onclick="navigate('category', 'earn')" class="group cursor-pointer relative overflow-hidden rounded-[40px] shadow-lg hover:shadow-2xl transition-all h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8 w-full">
+                            <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 inline-block">Trending</span>
+                            <h3 class="text-3xl font-black text-white mb-2">Earn Online 💸</h3>
+                            <p class="text-gray-200 mb-6 text-sm">Proven systems and digital courses to start generating income from home.</p>
+                            <button class="bg-white text-black px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 group-hover:bg-green-50 transition-colors">
+                                Open Category <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </section>
         </div>
 
-        <!-- ARTICLE VIEW (ROUTINE OR TRANSFORMATION) -->
+        <!-- ==================== CATEGORY VIEW (List of Routines) ==================== -->
+        <div id="category-view" class="view-section pb-24 pt-10">
+            <div class="max-w-screen-xl mx-auto px-4">
+                <button onclick="navigate('home')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Home
+                </button>
+
+                <div class="text-center md:text-left mb-12">
+                    <h1 id="cat-title" class="text-4xl md:text-6xl font-black tracking-tighter mb-4">Category Name</h1>
+                    <p id="cat-desc" class="text-xl text-gray-500">Discover all our verified guides below.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="category-grid">
+                    <!-- Populated by JS based on selected category -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ARTICLE VIEW (Single Routine Detail) ==================== -->
         <div id="article-view" class="view-section pb-24">
             <!-- Content injected via JS -->
         </div>
@@ -138,19 +209,17 @@
         <div class="max-w-screen-xl mx-auto grid md:grid-cols-3 gap-12">
             <div>
                 <div class="flex items-center gap-3 mb-6">
-                    <!-- YOUR CUSTOM LOGO -->
                     <img src="https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/1774086383545.png" class="w-10 h-10 rounded-full object-cover bg-white">
                     <span class="text-xl font-black tracking-tighter">Direct Deals</span>
                 </div>
-                <p class="text-gray-400 text-sm leading-relaxed mb-6">Curating the best lifestyle routines, style guides, and digital solutions to help you live better.</p>
+                <p class="text-gray-400 text-sm leading-relaxed mb-6">Curating the best lifestyle routines, style guides, and digital solutions to help you live better. 100% verified and tested.</p>
             </div>
             <div>
-                <h4 class="font-bold text-lg mb-6 uppercase tracking-widest text-gray-300">Quick Navigation</h4>
+                <h4 class="font-bold text-lg mb-6 uppercase tracking-widest text-gray-300">Categories</h4>
                 <ul class="space-y-3 text-gray-400 font-medium">
-                    <li><button onclick="navigate('home')" class="hover:text-white transition-colors">Home</button></li>
-                    <li><button onclick="scrollToSection('glow')" class="hover:text-white transition-colors">Skincare Guides</button></li>
-                    <li><button onclick="scrollToSection('style')" class="hover:text-white transition-colors">Fashion Routines</button></li>
-                    <li><button onclick="scrollToSection('earn')" class="hover:text-white transition-colors">Digital Wealth</button></li>
+                    <li><button onclick="navigate('category', 'glow')" class="hover:text-white transition-colors">✨ Skincare & Beauty</button></li>
+                    <li><button onclick="navigate('category', 'style')" class="hover:text-white transition-colors">👗 Fashion & Style</button></li>
+                    <li><button onclick="navigate('category', 'earn')" class="hover:text-white transition-colors">💸 Earn Online Guides</button></li>
                 </ul>
             </div>
             <div>
@@ -172,7 +241,7 @@
 
         // --- CONTENT DATABASE ---
         const CONTENT = [
-            // GLOW & SKINCARE (Using your exact uploaded product images)
+            // GLOW & SKINCARE
             {
                 id: 'night-glow-routine',
                 type: 'routine',
@@ -180,9 +249,7 @@
                 badge: '🔥 Trending',
                 title: 'My Night Skincare Routine 😴',
                 subtitle: 'Simple 3-step glow method featuring Saffron & Rosehip',
-                // Using your Serum image as the Thumbnail
                 thumb: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/NIGHTRECOVERYSERUM_2.jpg',
-                // Using your Face Oil image as the Hero Image inside the article
                 heroImg: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/GLOWBOOSTINGFACEOIL_5.jpg',
                 hookProb: 'Struggling with dull, tired skin or fine lines?',
                 hookStory: 'I tried everything… until this simple routine changed my skin. A premium Ayurvedic blend of Saffron and Rosehip that penetrates deep overnight. Waking up with a natural glass-skin glow is now my reality.',
@@ -201,7 +268,6 @@
                 badge: '⭐ Popular',
                 title: 'The Invisible Sun Shield ☀️',
                 subtitle: 'Zero white cast SPF 50 protection',
-                // Using your Sunscreen image for both thumb and hero
                 thumb: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/SUNPROTECTSUNSCREEN_294960ca-8a50-4458-ad5d-6906ebf3f864.jpg',
                 heroImg: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/SUNPROTECTSUNSCREEN_294960ca-8a50-4458-ad5d-6906ebf3f864.jpg',
                 hookProb: 'Hate sticky, white sunscreens that cause breakouts?',
@@ -214,7 +280,7 @@
                 finalLink: 'https://bitli.in/E2CAxuE'
             },
             
-            // FASHION (Placeholder until you upload fashion items)
+            // FASHION (Placeholder)
             {
                 id: 'minimal-outfit',
                 type: 'routine',
@@ -235,7 +301,7 @@
                 finalLink: '#'
             },
 
-            // EARN ONLINE (Digistore Placeholder)
+            // EARN ONLINE (Placeholder)
             {
                 id: 'beginner-income',
                 type: 'transformation',
@@ -284,18 +350,6 @@
             </div>`;
         }
 
-        function populateGrids() {
-            const glowGrid = document.getElementById('glow-grid');
-            const styleGrid = document.getElementById('style-grid');
-            const earnGrid = document.getElementById('earn-grid');
-
-            if(glowGrid) glowGrid.innerHTML = CONTENT.filter(c => c.category === 'glow').map(createCardHTML).join('');
-            if(styleGrid) styleGrid.innerHTML = CONTENT.filter(c => c.category === 'style').map(createCardHTML).join('');
-            if(earnGrid) earnGrid.innerHTML = CONTENT.filter(c => c.category === 'earn').map(createCardHTML).join('');
-            
-            lucide.createIcons(); // Re-init icons for new HTML
-        }
-
         // --- PAGE GENERATORS ---
 
         function renderRoutine(item) {
@@ -316,8 +370,8 @@
 
             return `
                 <div class="max-w-screen-md mx-auto pt-12 px-4">
-                    <button onclick="navigate('home')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit">
-                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
+                    <button onclick="navigate('category', '${item.category}')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to ${item.category}
                     </button>
                     
                     <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-[1.1]">${item.title}</h1>
@@ -363,8 +417,8 @@
 
             return `
                 <div class="max-w-screen-md mx-auto pt-12 px-4">
-                    <button onclick="navigate('home')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit">
-                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
+                    <button onclick="navigate('category', '${item.category}')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to ${item.category}
                     </button>
 
                     <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-[1.1]">${item.title}</h1>
@@ -407,9 +461,30 @@
             
             if (view === 'home') {
                 document.getElementById('home-view').classList.add('active');
-                // Remove URL parameter without reloading
                 window.history.replaceState({}, document.title, window.location.pathname);
             } 
+            else if (view === 'category' && id) {
+                const grid = document.getElementById('category-grid');
+                const title = document.getElementById('cat-title');
+                const desc = document.getElementById('cat-desc');
+                
+                // Update text based on category
+                if(id === 'glow') { title.innerText = 'Skincare & Glow ✨'; desc.innerText = 'Verified routines for flawless skin.'; }
+                if(id === 'style') { title.innerText = 'Style & Fashion 👗'; desc.innerText = 'Curated looks and aesthetic upgrades.'; }
+                if(id === 'earn') { title.innerText = 'Earn Online 💸'; desc.innerText = 'Proven systems to start making income.'; }
+
+                // Filter and show cards
+                const filtered = CONTENT.filter(c => c.category === id);
+                if(filtered.length > 0) {
+                    grid.innerHTML = filtered.map(createCardHTML).join('');
+                } else {
+                    grid.innerHTML = '<p class="text-gray-400 font-bold mt-8">Coming Soon...</p>';
+                }
+                
+                document.getElementById('category-view').classList.add('active');
+                window.history.replaceState({}, document.title, `?cat=${id}`);
+                lucide.createIcons();
+            }
             else if (view === 'article' && id) {
                 const item = CONTENT.find(c => c.id === id);
                 if (item) {
@@ -420,36 +495,26 @@
                         articleContainer.innerHTML = renderTransformation(item);
                     }
                     articleContainer.classList.add('active');
-                    lucide.createIcons(); // Re-init icons
-                    
-                    // Update URL for deep linking (Pinterest)
+                    lucide.createIcons();
                     window.history.replaceState({}, document.title, `?id=${id}`);
                 }
             }
             window.scrollTo(0, 0);
         }
 
-        function scrollToSection(id) {
-            navigate('home');
-            setTimeout(() => {
-                const el = document.getElementById(id);
-                // Offset calculation so it scrolls slightly below the top nav bars
-                const y = el.getBoundingClientRect().top + window.scrollY - 140; 
-                window.scrollTo({top: y, behavior: 'smooth'});
-            }, 50);
-        }
-
         // --- INITIALIZATION ---
         
         window.onload = () => {
-            populateGrids();
-            
-            // Check for Pinterest Deep Link
             const urlParams = new URLSearchParams(window.location.search);
             const contentId = urlParams.get('id');
+            const catId = urlParams.get('cat');
             
             if (contentId) {
                 navigate('article', contentId);
+            } else if (catId) {
+                navigate('category', catId);
+            } else {
+                navigate('home'); // Default
             }
         };
     </script>
