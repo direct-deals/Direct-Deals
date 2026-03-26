@@ -136,7 +136,7 @@
                     
                     <!-- Glow & Skincare Category Card -->
                     <div onclick="navigate('category', 'glow')" class="group cursor-pointer relative overflow-hidden rounded-[40px] shadow-lg hover:shadow-2xl transition-all h-[400px]">
-                        <img src="https://images.unsplash.com/photo-1615397323201-382aeb196a60?q=80&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <img src="https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-8 w-full">
                             <span class="bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 inline-block">Popular</span>
@@ -241,6 +241,26 @@
 
         // --- CONTENT DATABASE ---
         const CONTENT = [
+            // ADDED GLOW OIL ROUTINE HERE (WITH EXACT NAME & IMAGE PROVIDED)
+            {
+                id: 'glow-boosting-oil',
+                type: 'routine',
+                category: 'glow',
+                badge: '💧 Must Have',
+                title: 'Glow Boosting Oil',
+                subtitle: 'The secret to glass skin without the grease.',
+                thumb: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/GLOWBOOSTINGFACEOIL_5.jpg',
+                heroImg: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/GLOWBOOSTINGFACEOIL_5.jpg',
+                hookProb: 'Want that dewy, glass-skin look but hate oily, sticky serums?',
+                hookStory: 'I struggled with dry patches and dullness for years. This lightweight glow oil absorbs in seconds and leaves the most beautiful, natural highlight on the skin. It completely changed my makeup prep!',
+                steps: [
+                    { title: 'Cleanse & Tone', desc: 'Start with a fresh, slightly damp face for better absorption.', btn: 'View Toners', link: '#' },
+                    { title: 'Apply 3-4 Drops', desc: 'Warm the Glow Boosting Oil in your hands and gently press it into your skin.', btn: 'Get Glow Oil (₹1,499)', link: 'https://bitli.in/IO9gWvd' },
+                    { title: 'Gua Sha Massage', desc: 'Use a Gua Sha to sculpt the face and push the oil deeper into the pores.', btn: 'View Gua Sha Tools', link: '#' }
+                ],
+                finalCta: 'Shop Glow Boosting Oil',
+                finalLink: 'https://bitli.in/IO9gWvd'
+            },
             // GLOW & SKINCARE
             {
                 id: 'night-glow-routine',
@@ -499,7 +519,11 @@
                     window.history.replaceState({}, document.title, `?id=${id}`);
                 }
             }
-            window.scrollTo(0, 0);
+            
+            // FIX: Force scroll to top instantly after the DOM updates
+            setTimeout(() => {
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+            }, 10);
         }
 
         // --- INITIALIZATION ---
