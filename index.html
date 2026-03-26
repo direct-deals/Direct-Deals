@@ -1,294 +1,687 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Direct Deals - Skincare Routines</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Custom styles for smooth transitions and mobile tap highlights */
-    body {
-      background-color: #fafafa;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .page {
-      display: none;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-    .page.active {
-      display: block;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    /* Button active states for touch feedback */
-    .btn-press:active {
-      transform: scale(0.98);
-      opacity: 0.9;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Deals | Curated Routines & Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            scroll-behavior: smooth; 
+            background-color: #FAFAFA; 
+            color: #111827;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #d946ef, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #d946ef, #8b5cf6);
+        }
+        .soft-gradient-bg {
+            background: linear-gradient(135deg, #fdf4ff, #f3e8ff);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .view-section { display: none; animation: fadeIn 0.4s ease-out; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Hide scrollbar for clean horizontal scrolling */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
-<body class="text-gray-800 pb-20">
+<body class="antialiased overflow-x-hidden">
 
-  <!-- Sticky Header Navigation -->
-  <nav class="bg-white p-4 shadow-sm sticky top-0 z-50 flex justify-between items-center">
-    <div class="font-bold text-xl text-gray-900 cursor-pointer flex items-center gap-2" onclick="navigateTo('home')">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2v0a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12v0a2 2 0 0 1-2-2V7"/></svg>
-      Direct Deals
-    </div>
-    <div class="flex gap-3">
-      <button onclick="navigateTo('skincare')" class="text-sm font-semibold bg-gray-100 px-4 py-2 rounded-full hover:bg-gray-200 transition btn-press">Skincare</button>
-    </div>
-  </nav>
-
-  <!-- Main Mobile-Optimized Container -->
-  <main class="max-w-xl mx-auto p-4 mt-2">
-
-    <!-- ==========================================
-         PAGE: HOME
-    =========================================== -->
-    <div id="page-home" class="page active">
-      <div class="text-center mb-8 mt-4">
-        <h1 class="text-3xl font-bold mb-2">Build Your Routine</h1>
-        <p class="text-gray-500">Curated, step-by-step solutions for your skin.</p>
-      </div>
-
-      <div class="space-y-4">
-        <!-- Routine Card 1 -->
-        <div class="bg-white rounded-2xl p-1 shadow-sm border border-gray-100 cursor-pointer btn-press" onclick="navigateTo('glow-oil')">
-          <div class="bg-orange-50 rounded-xl p-6">
-            <span class="text-orange-600 font-bold text-xs uppercase tracking-wider mb-2 block">Morning Routine</span>
-            <h2 class="text-xl font-bold mb-1">Glow Boosting Protocol</h2>
-            <p class="text-gray-600 text-sm mb-4">Achieve radiant skin in simple steps.</p>
-            <div class="flex items-center text-orange-600 font-semibold text-sm">
-              View Routine <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    <!-- MAIN NAVIGATION BAR -->
+    <nav class="sticky top-0 z-50 glass-card transition-all duration-300">
+        <div class="max-w-screen-xl mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
+            <div class="cursor-pointer flex items-center gap-3" onclick="navigate('home')">
+                <img src="https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/1774086383545.png" alt="Direct Deals Logo" class="w-12 h-12 rounded-full object-cover shadow-sm border border-gray-100">
+                <div class="flex flex-col">
+                    <span class="text-xl font-extrabold tracking-tight leading-none">Direct Deals</span>
+                    <span class="text-[10px] font-bold text-gray-500 tracking-widest uppercase mt-0.5">Curated Solutions</span>
+                </div>
             </div>
-          </div>
+            
+            <a href="https://pin.it/cwOs1jyjO" target="_blank" class="flex bg-red-600 text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-red-700 transition-all shadow-md items-center gap-2">
+                <i data-lucide="pin" class="w-4 h-4"></i> <span class="hidden sm:inline">Follow</span>
+            </a>
         </div>
 
-        <!-- Routine Card 2 -->
-        <div class="bg-white rounded-2xl p-1 shadow-sm border border-gray-100 cursor-pointer btn-press" onclick="navigateTo('night-serum')">
-          <div class="bg-indigo-50 rounded-xl p-6">
-            <span class="text-indigo-600 font-bold text-xs uppercase tracking-wider mb-2 block">Night Routine</span>
-            <h2 class="text-xl font-bold mb-1">Night Recovery System</h2>
-            <p class="text-gray-600 text-sm mb-4">Repair and hydrate while you sleep.</p>
-            <div class="flex items-center text-indigo-600 font-semibold text-sm">
-              View Routine <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        <!-- TOP QUICK NAVIGATION -->
+        <div class="border-t border-gray-100 bg-white/80 backdrop-blur-md">
+            <div class="max-w-screen-xl mx-auto px-4 py-3 flex gap-3 overflow-x-auto hide-scrollbar items-center">
+                <span class="text-xs font-black uppercase tracking-widest text-gray-400 mr-2 shrink-0">Explore:</span>
+                <button onclick="navigate('home')" class="shrink-0 px-4 py-2 bg-gray-100 text-gray-800 rounded-full text-sm font-bold hover:bg-gray-200 transition-colors">🏠 Home</button>
+                <button onclick="navigate('category', 'glow')" class="shrink-0 px-4 py-2 bg-pink-50 text-pink-700 border border-pink-100 rounded-full text-sm font-bold hover:bg-pink-100 transition-colors">✨ Skincare</button>
+                <button onclick="navigate('category', 'style')" class="shrink-0 px-4 py-2 bg-blue-50 text-blue-700 border border-blue-100 rounded-full text-sm font-bold hover:bg-blue-100 transition-colors">👗 Style</button>
+                <button onclick="navigate('category', 'earn')" class="shrink-0 px-4 py-2 bg-green-50 text-green-700 border border-green-100 rounded-full text-sm font-bold hover:bg-green-100 transition-colors">💸 Earn Online</button>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
+    </nav>
 
-    <!-- ==========================================
-         PAGE: SKINCARE CATEGORY
-    =========================================== -->
-    <div id="page-skincare" class="page">
-      <div class="mb-6 flex items-center gap-2" onclick="navigateTo('home')">
-        <svg class="w-5 h-5 text-gray-500 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-        <span class="text-gray-500 font-medium cursor-pointer">Back to Home</span>
-      </div>
-      <h1 class="text-2xl font-bold mb-6">Skincare Essentials</h1>
-      
-      <!-- Products will be injected here via JS -->
-      <div id="product-list" class="space-y-6"></div>
-    </div>
-
-    <!-- ==========================================
-         PAGE: PRODUCT - CLEANSER
-    =========================================== -->
-    <div id="page-cleanser" class="page">
-      <div class="mb-4 flex items-center gap-2" onclick="navigateTo('skincare')">
-        <svg class="w-5 h-5 text-gray-500 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-        <span class="text-gray-500 font-medium cursor-pointer">Back to Skincare</span>
-      </div>
-
-      <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 mb-6">
-        <!-- 1. Hero Section -->
-        <span class="text-amber-600 font-bold uppercase tracking-wide text-xs block mb-2">Step 1 for clear and healthy skin</span>
-        <h1 class="text-2xl font-bold text-gray-900 mb-4">Cetaphil Gentle Skin Cleanser</h1>
+    <!-- MAIN CONTAINER -->
+    <main id="app-container">
         
-        <div class="bg-gray-50 rounded-2xl p-4 mb-6 flex justify-center items-center">
-          <img src="https://github.com/direct-deals/Direct-Deals/blob/main/-original-imahgmzgxehhrevs.jpeg?raw=true" alt="Cetaphil Cleanser" class="max-h-64 object-contain rounded-xl shadow-sm bg-white p-2">
+        <!-- ==================== HOME VIEW ==================== -->
+        <div id="home-view" class="view-section active pb-24">
+            
+            <!-- HERO SECTION -->
+            <section class="relative pt-16 pb-20 px-4 overflow-hidden soft-gradient-bg">
+                <div class="relative z-10 max-w-4xl mx-auto text-center">
+                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-gray-100 text-sm font-bold text-gray-700 mb-8">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-purple-500"></i>
+                        Trusted by 1,000+ smart shoppers
+                    </span>
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-gray-900 leading-[1.1] mb-6">
+                        Shop Smarter. <br><span class="gradient-text">Live Better.</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-600 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
+                        We find the viral trends and verify the quality so you don't have to. Your ultimate guide to a premium lifestyle.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ABOUT US / TRUST BUILDING SECTION -->
+            <section class="py-16 px-4 max-w-screen-xl mx-auto -mt-10 relative z-20">
+                <div class="bg-white rounded-[40px] shadow-2xl border border-gray-100 p-8 md:p-16">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-black tracking-tighter mb-4">Why Trust Direct Deals? 🤔</h2>
+                        <p class="text-lg text-gray-500 max-w-2xl mx-auto">We don't just list products; we curate solutions. Every routine and guide on this platform is heavily researched and verified for quality.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="p-6 bg-purple-50 rounded-3xl border border-purple-100 hover:-translate-y-2 transition-transform">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-purple-600">
+                                <i data-lucide="shield-check" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">100% Verified</h3>
+                            <p class="text-gray-600 text-sm">We only link to official stores and high-rated sellers. No fakes, no scams.</p>
+                        </div>
+                        <div class="p-6 bg-pink-50 rounded-3xl border border-pink-100 hover:-translate-y-2 transition-transform">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-pink-500">
+                                <i data-lucide="heart" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Tested Routines</h3>
+                            <p class="text-gray-600 text-sm">Products are good, but routines are better. We guide you step-by-step.</p>
+                        </div>
+                        <div class="p-6 bg-blue-50 rounded-3xl border border-blue-100 hover:-translate-y-2 transition-transform">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-blue-500">
+                                <i data-lucide="trending-up" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Market Low Prices</h3>
+                            <p class="text-gray-600 text-sm">We hunt for the best direct deals and discounts so you save your hard-earned money.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CATEGORY HUBS -->
+            <section class="py-16 px-4 max-w-screen-xl mx-auto">
+                <div class="flex items-center gap-3 mb-12 justify-center md:justify-start">
+                    <div class="w-3 h-8 gradient-bg rounded-full hidden md:block"></div>
+                    <h2 class="text-4xl font-black tracking-tighter text-center md:text-left">Explore Our Categories</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Glow & Skincare -->
+                    <div onclick="navigate('category', 'glow')" class="group cursor-pointer relative overflow-hidden rounded-[40px] shadow-lg hover:shadow-2xl transition-all h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8 w-full">
+                            <span class="bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 inline-block">Popular</span>
+                            <h3 class="text-3xl font-black text-white mb-2">Skincare & Glow ✨</h3>
+                            <p class="text-gray-200 mb-6 text-sm">Step-by-step beauty routines & premium product recommendations.</p>
+                            <button class="bg-white text-black px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 group-hover:bg-pink-50 transition-colors">
+                                Open Category <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Style & Fashion -->
+                    <div onclick="navigate('category', 'style')" class="group cursor-pointer relative overflow-hidden rounded-[40px] shadow-lg hover:shadow-2xl transition-all h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8 w-full">
+                            <h3 class="text-3xl font-black text-white mb-2">Style & Fashion 👗</h3>
+                            <p class="text-gray-200 mb-6 text-sm">Curated looks, minimal outfits, and aesthetic upgrades.</p>
+                            <button class="bg-white text-black px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 group-hover:bg-blue-50 transition-colors">
+                                Open Category <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Earn Online -->
+                    <div onclick="navigate('category', 'earn')" class="group cursor-pointer relative overflow-hidden rounded-[40px] shadow-lg hover:shadow-2xl transition-all h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8 w-full">
+                            <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 inline-block">Trending</span>
+                            <h3 class="text-3xl font-black text-white mb-2">Earn Online 💸</h3>
+                            <p class="text-gray-200 mb-6 text-sm">Proven systems and digital courses to start generating income from home.</p>
+                            <button class="bg-white text-black px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 group-hover:bg-green-50 transition-colors">
+                                Open Category <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
         </div>
 
-        <!-- 2. Problem Section -->
-        <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg mb-6">
-          <p class="italic text-red-700 font-medium text-sm">⚠️ Skipping proper cleansing leads to trapped bacteria, acne breakouts, and dull skin.</p>
+        <!-- ==================== CATEGORY VIEW ==================== -->
+        <div id="category-view" class="view-section pb-24 pt-10">
+            <div class="max-w-screen-xl mx-auto px-4">
+                <button onclick="navigate('home')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Home
+                </button>
+
+                <div class="text-center md:text-left mb-12">
+                    <h1 id="cat-title" class="text-4xl md:text-6xl font-black tracking-tighter mb-4">Category Name</h1>
+                    <p id="cat-desc" class="text-xl text-gray-500">Discover all our verified guides below.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="category-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
         </div>
 
-        <!-- 3. Benefits Section -->
-        <h2 class="text-lg font-bold text-blue-900 mb-3">Why it works:</h2>
-        <ul class="space-y-3 mb-6 text-gray-700 text-sm">
-          <li class="flex items-start gap-2">
-            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            Extremely gentle on sensitive, acne-prone skin.
-          </li>
-          <li class="flex items-start gap-2">
-            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            Removes dirt, oil, and daily buildup without stripping moisture.
-          </li>
-          <li class="flex items-start gap-2">
-            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            Prepares your skin to actually absorb serums and oils.
-          </li>
-        </ul>
-
-        <!-- 4. Usage Section -->
-        <h2 class="text-lg font-bold text-blue-900 mb-2">How to use it:</h2>
-        <p class="text-gray-700 text-sm mb-8 leading-relaxed">
-          Massage onto damp skin morning and night. <strong class="text-gray-900">Use before applying your serum or oil for the best results.</strong>
-        </p>
-
-        <!-- 5 & 6. CTA Sections -->
-        <div class="space-y-3">
-          <!-- Affiliate Link Button -->
-          <a href="https://fktr.in/Wm7HDWO" target="_blank" rel="noopener noreferrer" class="block w-full bg-blue-600 text-white text-center font-bold text-lg py-4 px-6 rounded-xl shadow-md hover:bg-blue-700 btn-press transition">
-            Start Clear Skin Routine
-          </a>
-          <!-- Secondary routing CTA -->
-          <button onclick="navigateTo('skincare')" class="block w-full bg-gray-100 text-gray-800 text-center font-bold text-md py-4 px-6 rounded-xl hover:bg-gray-200 btn-press transition">
-            See Full Routine List
-          </button>
+        <!-- ==================== ARTICLE VIEW ==================== -->
+        <div id="article-view" class="view-section pb-24">
+            <!-- Content injected via JS -->
         </div>
-      </div>
-    </div>
 
-    <!-- ==========================================
-         PAGE: ROUTINE - GLOW OIL
-    =========================================== -->
-    <div id="page-glow-oil" class="page">
-      <div class="mb-4 flex items-center gap-2" onclick="navigateTo('home')">
-        <svg class="w-5 h-5 text-gray-500 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-        <span class="text-gray-500 font-medium cursor-pointer">Back to Routines</span>
-      </div>
+        <!-- ==================== STEP GUIDE VIEW ==================== -->
+        <div id="step-view" class="view-section pb-24 pt-10">
+            <!-- Step detailed content injected via JS -->
+        </div>
 
-      <h1 class="text-3xl font-bold mb-2">Glow Boosting Routine</h1>
-      <p class="text-gray-600 mb-8">Follow these steps exactly for radiant, glass-like skin.</p>
+    </main>
 
-      <!-- Step 1 Integration (Cleanser) -->
-      <div class="bg-amber-50 border-2 border-amber-400 rounded-2xl p-6 shadow-sm mb-6 relative overflow-hidden">
-        <div class="absolute top-0 right-0 bg-amber-400 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg tracking-wider uppercase">Crucial Step</div>
-        <span class="text-amber-700 font-bold uppercase tracking-wider text-xs block mb-1 mt-2">Step 1 - Preparation</span>
-        <h2 class="text-xl font-bold text-gray-900 mb-2">Cleanse Your Canvas</h2>
-        <p class="text-gray-700 text-sm mb-5">Before applying your glow oil, you need a perfectly clean base so the ingredients can actually penetrate your pores instead of sitting on top of dirt.</p>
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-16 px-4">
+        <div class="max-w-screen-xl mx-auto grid md:grid-cols-3 gap-12">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <img src="https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/1774086383545.png" class="w-10 h-10 rounded-full object-cover bg-white">
+                    <span class="text-xl font-black tracking-tighter">Direct Deals</span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed mb-6">Curating the best lifestyle routines, style guides, and digital solutions to help you live better. 100% verified and tested.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-6 uppercase tracking-widest text-gray-300">Categories</h4>
+                <ul class="space-y-3 text-gray-400 font-medium">
+                    <li><button onclick="navigate('category', 'glow')" class="hover:text-white transition-colors">✨ Skincare & Beauty</button></li>
+                    <li><button onclick="navigate('category', 'style')" class="hover:text-white transition-colors">👗 Fashion & Style</button></li>
+                    <li><button onclick="navigate('category', 'earn')" class="hover:text-white transition-colors">💸 Earn Online Guides</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-6 uppercase tracking-widest text-gray-300">Disclaimer</h4>
+                <p class="text-gray-400 text-xs leading-relaxed mb-4">
+                    This site contains affiliate links. If you purchase through these links, we may earn a commission at no extra cost to you. We only recommend products we verify and trust.
+                </p>
+                <p class="text-gray-400 text-sm font-medium">Contact: quicklistingpro<span>@</span>gmail.com</p>
+            </div>
+        </div>
+        <div class="max-w-screen-xl mx-auto mt-16 pt-8 border-t border-gray-800 text-center text-gray-500 text-xs font-bold uppercase tracking-widest">
+            © 2024 Direct Deals • All Rights Reserved
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // --- CONTENT DATABASE ---
+        const CONTENT = [
+            // ==========================================
+            // @a@ SKINCARE & GLOW CATEGORY PRODUCTS
+            // Add new skincare routines below this line!
+            // ==========================================
+            
+            /* TEMPLATE TO ADD NEW SKINCARE PRODUCT:
+            {
+                id: 'unique-id-here',
+                type: 'routine',
+                category: 'glow',
+                badge: '✨ New',
+                title: 'Product Title',
+                subtitle: 'Product Subtitle here.',
+                thumb: 'image-url.jpg',
+                heroImg: 'image-url.jpg',
+                hookProb: 'What problem does this solve?',
+                hookStory: 'Your personal story about it...',
+                steps: [
+                    { 
+                        title: 'Step 1 Name', 
+                        desc: 'Step 1 description.', 
+                        btn: 'View Step 1', 
+                        link: '#', // Keep '#' if you want it to open a detailed guide page
+                        // Optional: Add detailed guide content for the new page
+                        guide: {
+                            title: 'How to do Step 1',
+                            image: 'image-url.jpg',
+                            content: '<p>Detailed instructions here...</p>'
+                        }
+                    }
+                ],
+                finalCta: 'Shop Now',
+                finalLink: 'https://your-link.com'
+            },
+            */
+
+            {
+                id: 'glow-boosting-oil',
+                type: 'routine',
+                category: 'glow',
+                badge: '💧 Must Have',
+                title: 'Glow Boosting Oil',
+                subtitle: 'The secret to glass skin without the grease.',
+                thumb: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/GLOWBOOSTINGFACEOIL_5.jpg',
+                heroImg: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/GLOWBOOSTINGFACEOIL_5.jpg',
+                hookProb: 'Want that dewy, glass-skin look but hate oily, sticky serums?',
+                hookStory: 'I struggled with dry patches and dullness for years. This lightweight glow oil absorbs in seconds and leaves the most beautiful, natural highlight on the skin. It completely changed my makeup prep!',
+                steps: [
+                    { 
+                        title: 'Cleanse & Tone', 
+                        desc: 'Start with a fresh, slightly damp face for better absorption.', 
+                        btn: 'View Step 1', 
+                        link: '#',
+                        // GUIDING PAGE CONTENT FOR STEP 1
+                        guide: {
+                            title: 'The Perfect Cleanse',
+                            image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1600',
+                            content: `
+                                <h3 class="font-bold text-2xl mb-4">Why is cleansing so important?</h3>
+                                <p class="mb-4">Before applying the Glow Boosting Oil, your skin needs to be completely free of dirt, old SPF, and excess oils. If you don't cleanse properly, the oil will sit on top of your skin and clog your pores instead of absorbing.</p>
+                                <ul class="list-disc pl-5 space-y-2 mb-6 font-medium text-gray-800">
+                                    <li>Use lukewarm water (never hot).</li>
+                                    <li>Massage the cleanser into your skin for a full 60 seconds.</li>
+                                    <li>Pat dry with a soft microfiber towel—do not rub!</li>
+                                </ul>
+                                <p>Leaving your skin slightly damp before the next step will actually help the oil lock in hydration.</p>
+                            `,
+                            productLink: '#',
+                            productBtn: 'Explore Top Cleansers'
+                        }
+                    },
+                    { title: 'Apply 3-4 Drops', desc: 'Warm the Glow Boosting Oil in your hands and gently press it into your skin.', btn: 'Get Glow Oil (₹1,499)', link: 'https://bitli.in/IO9gWvd' },
+                    { title: 'Gua Sha Massage', desc: 'Use a Gua Sha to sculpt the face and push the oil deeper into the pores.', btn: 'View Gua Sha Tools', link: '#' }
+                ],
+                finalCta: 'Shop Glow Boosting Oil',
+                finalLink: 'https://bitli.in/IO9gWvd'
+            },
+            {
+                id: 'night-glow-routine',
+                type: 'routine',
+                category: 'glow',
+                badge: '🔥 Trending',
+                title: 'My Night Skincare Routine 😴',
+                subtitle: 'Simple 3-step glow method featuring Saffron & Rosehip',
+                thumb: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/NIGHTRECOVERYSERUM_2.jpg',
+                // FIX: Changed from GLOWBOOSTINGFACEOIL to NIGHTRECOVERYSERUM
+                heroImg: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/NIGHTRECOVERYSERUM_2.jpg',
+                hookProb: 'Struggling with dull, tired skin or fine lines?',
+                hookStory: 'I tried everything… until this simple routine changed my skin. A premium Ayurvedic blend of Saffron and Rosehip that penetrates deep overnight. Waking up with a natural glass-skin glow is now my reality.',
+                steps: [
+                    { 
+                        title: 'Cleanse Properly', 
+                        desc: 'Removes deep dirt, SPF, and oil buildup without stripping natural moisture.', 
+                        btn: 'View Step 1', 
+                        link: '#',
+                        guide: {
+                            title: 'Double Cleansing Method',
+                            image: 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=1600',
+                            content: `
+                                <p class="mb-4">At night, a single cleanse isn't enough to remove sunscreen and pollution. You need to double cleanse.</p>
+                                <p class="mb-4"><strong>Step A:</strong> Use an oil-based cleanser or micellar water to melt away the stubborn layers.</p>
+                                <p class="mb-4"><strong>Step B:</strong> Follow up with a gentle, water-based foaming cleanser to clean the actual skin beneath.</p>
+                            `
+                        }
+                    },
+                    { title: 'Apply Night Recovery Serum', desc: 'Boost hydration & repair cells overnight with potent Saffron.', btn: 'Get The Serum (₹1,399)', link: 'https://bitli.in/A407aX7' },
+                    { title: 'Lock with Face Oil', desc: 'Seal in the magic instantly without greasiness for velvet-soft skin.', btn: 'Try Glow Oil (₹1,499)', link: 'https://bitli.in/IO9gWvd' }
+                ],
+                finalCta: 'Get the Complete Glow Kit',
+                finalLink: 'https://bitli.in/A407aX7'
+            },
+            {
+                id: 'sun-protection',
+                type: 'routine',
+                category: 'glow',
+                badge: '⭐ Popular',
+                title: 'The Invisible Sun Shield ☀️',
+                subtitle: 'Zero white cast SPF 50 protection',
+                thumb: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/SUNPROTECTSUNSCREEN_294960ca-8a50-4458-ad5d-6906ebf3f864.jpg',
+                heroImg: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/SUNPROTECTSUNSCREEN_294960ca-8a50-4458-ad5d-6906ebf3f864.jpg',
+                hookProb: 'Hate sticky, white sunscreens that cause breakouts?',
+                hookStory: 'Finding a sunscreen that doesn\'t look chalky on Indian skin felt impossible. This SPF 50 PA++++ formula is designed to feel weightless and invisible.',
+                steps: [
+                    { title: 'Prep Skin', desc: 'Start with a clean, dry canvas before heading out.', btn: 'View Prep Toner', link: '#' },
+                    { title: 'Apply SPF 50 Protect', desc: 'Use two fingers worth of this weightless, zero-white-cast formula.', btn: 'Get Sunscreen (₹1,149)', link: 'https://bitli.in/E2CAxuE' }
+                ],
+                finalCta: 'Secure Your Sunscreen',
+                finalLink: 'https://bitli.in/E2CAxuE'
+            },
+            
+            // ==========================================
+            // @b@ STYLE & FASHION CATEGORY PRODUCTS
+            // Add new style routines below this line!
+            // ==========================================
+
+            {
+                id: 'minimal-outfit',
+                type: 'routine',
+                category: 'style',
+                badge: '👗 Chic',
+                title: 'Minimal Outfit Routine',
+                subtitle: 'Look expensive on a budget',
+                thumb: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800', 
+                heroImg: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1600',
+                hookProb: 'A closet full of clothes but nothing to wear?',
+                hookStory: 'The secret to looking put-together isn\'t having more clothes, it\'s having the right basics. Here is how I build an everyday premium look.',
+                steps: [
+                    { title: 'The Perfect Base', desc: 'A well-fitted neutral top sets the tone.', btn: 'View Tops', link: '#' },
+                    { title: 'Structured Bottoms', desc: 'Elevate the look with tailored trousers instead of jeans.', btn: 'Shop Trousers', link: '#' },
+                    { title: 'Statement Accessories', desc: 'Add gold hoops and a structured bag to finish.', btn: 'Get Accessories', link: '#' }
+                ],
+                finalCta: 'Shop the Full Look',
+                finalLink: '#'
+            },
+
+            // ==========================================
+            // @c@ EARN ONLINE CATEGORY PRODUCTS
+            // Add new earn online guides below this line!
+            // ==========================================
+
+            {
+                id: 'beginner-income',
+                type: 'transformation',
+                category: 'earn',
+                badge: '💰 Life Changing',
+                title: 'How Beginners Make ₹5000/Day',
+                subtitle: 'No-skill side hustle system',
+                thumb: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?q=80&w=800',
+                heroImg: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600',
+                problem: 'Tired of having no passive income and feeling stuck?',
+                story: 'Most people fail at online business because they follow the wrong methods or try to build complex stores. The real secret is leveraging systems that already work.',
+                solutionIntro: 'The "Direct Affiliate System" is a proven blueprint. You don\'t need inventory, you don\'t need technical skills, and you can run it entirely from your phone.',
+                benefits: [
+                    '100% Beginner Friendly (No tech skills needed)',
+                    'Zero Inventory or Product Creation',
+                    'Work 1-2 Hours a Day from Your Phone',
+                    'Automated Income Potential'
+                ],
+                urgency: '⚡ High Demand: This method is currently trending. Start before the market saturates.',
+                cta: 'Start Your Journey Today',
+                link: '#'
+            }
+        ];
+
+        // --- RENDER LOGIC ---
+
+        function createCardHTML(item) {
+            return `
+            <div onclick="navigate('article', '${item.id}')" class="group cursor-pointer bg-white rounded-[24px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col h-full transform hover:-translate-y-1">
+                <div class="relative h-64 overflow-hidden bg-gray-50">
+                    <img src="${item.thumb}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm">${item.badge || 'Featured'}</span>
+                    </div>
+                </div>
+                <div class="p-8 flex flex-col flex-grow text-center md:text-left">
+                    <h3 class="font-black text-2xl mb-2 text-gray-900 group-hover:text-purple-600 transition-colors">${item.title}</h3>
+                    <p class="text-gray-500 font-medium mb-8">${item.subtitle}</p>
+                    <div class="mt-auto">
+                        <span class="text-sm font-bold uppercase tracking-widest flex items-center justify-center md:justify-start gap-2 text-black">
+                            ${item.type === 'routine' ? 'See Full Routine' : 'Start Learning'} 
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-2 transition-transform"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        // --- PAGE GENERATORS ---
+
+        function renderRoutine(item) {
+            let stepsHTML = item.steps.map((step, index) => {
+                // If link is empty/hash, or if a guide exists, it opens the internal page. Otherwise external link.
+                const isInternalGuide = step.link === '#' || step.guide;
+                const btnTag = isInternalGuide ? 'button' : 'a';
+                const btnAction = isInternalGuide ? `onclick="navigate('step', '${item.id}', ${index})"` : `href="${step.link}" target="_blank"`;
+
+                return `
+                <div class="bg-white p-6 md:p-8 rounded-[24px] shadow-sm border border-gray-100 mb-6 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                    <div class="w-16 h-16 shrink-0 rounded-2xl soft-gradient-bg flex items-center justify-center text-purple-600 font-black text-2xl border border-purple-100">
+                        ${index + 1}
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="text-xl md:text-2xl font-black mb-2">${step.title}</h3>
+                        <p class="text-gray-500 font-medium">${step.desc}</p>
+                    </div>
+                    <${btnTag} ${btnAction} class="w-full sm:w-auto px-6 py-3 bg-gray-900 text-white rounded-full font-bold text-sm text-center hover:bg-black transition-colors shrink-0">
+                        ${step.btn}
+                    </${btnTag}>
+                </div>
+                `;
+            }).join('');
+
+            return `
+                <div class="max-w-screen-md mx-auto pt-12 px-4">
+                    <button onclick="navigate('category', '${item.category}')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to ${item.category}
+                    </button>
+                    
+                    <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-[1.1]">${item.title}</h1>
+                    
+                    <div class="bg-purple-50 p-6 md:p-8 rounded-[32px] mb-12 border border-purple-100">
+                        <p class="text-lg font-bold text-purple-900 mb-2">${item.hookProb}</p>
+                        <p class="text-lg md:text-xl text-purple-700 font-medium italic">"${item.hookStory}"</p>
+                    </div>
+
+                    <div class="relative w-full h-[300px] md:h-[500px] mb-16 rounded-[40px] overflow-hidden shadow-xl">
+                        <img src="${item.heroImg}" class="absolute inset-0 w-full h-full object-cover">
+                    </div>
+
+                    <div class="mb-16">
+                        <div class="flex items-center gap-3 mb-8">
+                            <div class="w-3 h-8 gradient-bg rounded-full"></div>
+                            <h2 class="text-2xl md:text-3xl font-black tracking-tighter">The Step-by-Step Guide</h2>
+                        </div>
+                        ${stepsHTML}
+                    </div>
+
+                    <div class="soft-gradient-bg p-8 md:p-12 rounded-[40px] text-center border border-purple-100 shadow-lg mb-12">
+                        <div class="flex justify-center gap-2 mb-6 text-purple-600">
+                            <i data-lucide="check-circle-2"></i> <i data-lucide="check-circle-2"></i> <i data-lucide="check-circle-2"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-black mb-4">Ready for the Transformation?</h2>
+                        <p class="text-gray-600 font-medium mb-8">Simple routine. Beginner friendly. Used by thousands.</p>
+                        <a href="${item.finalLink}" target="_blank" class="inline-block px-8 py-4 bg-black text-white rounded-full font-black text-lg uppercase tracking-widest shadow-xl hover:scale-105 transition-transform w-full md:w-auto">
+                            ${item.finalCta}
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderTransformation(item) {
+            let benefitsHTML = item.benefits.map(b => `
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="mt-1 bg-green-100 p-1 rounded-full text-green-600"><i data-lucide="check" class="w-4 h-4 text-green-600 font-bold"></i></div>
+                    <span class="text-lg font-medium text-gray-700">${b}</span>
+                </div>
+            `).join('');
+
+            return `
+                <div class="max-w-screen-md mx-auto pt-12 px-4">
+                    <button onclick="navigate('category', '${item.category}')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to ${item.category}
+                    </button>
+
+                    <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-[1.1]">${item.title}</h1>
+                    
+                    <img src="${item.heroImg}" class="w-full h-[300px] md:h-[400px] object-cover rounded-[40px] shadow-xl mb-12">
+
+                    <div class="prose max-w-none">
+                        <h2 class="text-2xl md:text-3xl font-black tracking-tighter mb-6 text-red-500">The Problem</h2>
+                        <p class="text-xl md:text-2xl text-gray-700 font-medium italic mb-10 border-l-4 border-red-500 pl-6 py-2">"${item.problem}"</p>
+                        
+                        <p class="text-lg text-gray-600 leading-relaxed mb-12">${item.story}</p>
+
+                        <div class="bg-gray-900 text-white p-8 md:p-12 rounded-[40px] mb-12 shadow-2xl">
+                            <h2 class="text-2xl md:text-3xl font-black tracking-tighter mb-6 gradient-text">The Solution</h2>
+                            <p class="text-lg text-gray-300 leading-relaxed mb-10">${item.solutionIntro}</p>
+                            
+                            <div class="bg-gray-800 rounded-3xl p-6 md:p-8 mb-10">
+                                <h3 class="text-lg md:text-xl font-bold mb-6 uppercase tracking-widest text-gray-400">What You Get:</h3>
+                                ${benefitsHTML}
+                            </div>
+
+                            <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-2xl p-6 mb-10 flex gap-4 items-start">
+                                <i data-lucide="zap" class="w-6 h-6 text-yellow-500 shrink-0 mt-1"></i>
+                                <p class="text-yellow-500 font-bold text-sm md:text-base">${item.urgency}</p>
+                            </div>
+
+                            <a href="${item.link}" target="_blank" class="block w-full text-center py-5 gradient-bg text-white rounded-full font-black text-lg md:text-xl shadow-lg hover:scale-[1.02] transition-transform">
+                                ${item.cta}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- GENERATOR FOR THE NEW STEP GUIDE PAGE ---
+        function renderStepGuide(routine, stepIndex) {
+            const step = routine.steps[stepIndex];
+            // Provide fallback content if the guide object isn't completely filled out
+            const guide = step.guide || {
+                title: step.title,
+                content: `<p class="mb-4 text-xl">${step.desc}</p><p>We are still building this detailed guide. Check back soon!</p>`,
+                image: routine.heroImg
+            };
+
+            return `
+                <div class="max-w-screen-md mx-auto pt-12 px-4">
+                    <button onclick="navigate('article', '${routine.id}')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Routine
+                    </button>
+                    
+                    <span class="inline-block px-4 py-1 bg-purple-100 text-purple-700 font-bold rounded-full text-sm mb-4">Step ${parseInt(stepIndex) + 1}</span>
+                    <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-8 leading-[1.1]">${guide.title}</h1>
+                    
+                    ${guide.image ? `<img src="${guide.image}" class="w-full h-[300px] md:h-[450px] object-cover rounded-[40px] shadow-xl mb-10">` : ''}
+
+                    <div class="prose max-w-none text-lg text-gray-700 leading-relaxed mb-12">
+                        ${guide.content}
+                    </div>
+
+                    ${guide.productLink && guide.productLink !== '#' ? `
+                    <div class="bg-gray-900 text-white p-8 rounded-[32px] text-center shadow-2xl mb-12">
+                        <h3 class="text-2xl font-black mb-4">Ready to perform this step?</h3>
+                        <a href="${guide.productLink}" target="_blank" class="inline-block px-8 py-4 gradient-bg text-white rounded-full font-black text-lg uppercase tracking-widest shadow-xl hover:scale-105 transition-transform">
+                            ${guide.productBtn || 'Get Product'}
+                        </a>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        // --- NAVIGATION CONTROLLER ---
+
+        function navigate(view, id = null, extraId = null) {
+            // Hide everything first
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            
+            if (view === 'home') {
+                document.getElementById('home-view').classList.add('active');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } 
+            else if (view === 'category' && id) {
+                const grid = document.getElementById('category-grid');
+                const title = document.getElementById('cat-title');
+                const desc = document.getElementById('cat-desc');
+                
+                if(id === 'glow') { title.innerText = 'Skincare & Glow ✨'; desc.innerText = 'Verified routines for flawless skin.'; }
+                if(id === 'style') { title.innerText = 'Style & Fashion 👗'; desc.innerText = 'Curated looks and aesthetic upgrades.'; }
+                if(id === 'earn') { title.innerText = 'Earn Online 💸'; desc.innerText = 'Proven systems to start making income.'; }
+
+                const filtered = CONTENT.filter(c => c.category === id);
+                if(filtered.length > 0) {
+                    grid.innerHTML = filtered.map(createCardHTML).join('');
+                } else {
+                    grid.innerHTML = '<p class="text-gray-400 font-bold mt-8">Coming Soon...</p>';
+                }
+                
+                document.getElementById('category-view').classList.add('active');
+                window.history.replaceState({}, document.title, `?cat=${id}`);
+                lucide.createIcons();
+            }
+            else if (view === 'article' && id) {
+                const item = CONTENT.find(c => c.id === id);
+                if (item) {
+                    const articleContainer = document.getElementById('article-view');
+                    if(item.type === 'routine') {
+                        articleContainer.innerHTML = renderRoutine(item);
+                    } else if (item.type === 'transformation') {
+                        articleContainer.innerHTML = renderTransformation(item);
+                    }
+                    articleContainer.classList.add('active');
+                    lucide.createIcons();
+                    window.history.replaceState({}, document.title, `?id=${id}`);
+                }
+            }
+            // HANDLING THE NEW STEP PAGE
+            else if (view === 'step' && id && extraId !== null) {
+                const item = CONTENT.find(c => c.id === id);
+                if (item && item.steps[extraId]) {
+                    const stepContainer = document.getElementById('step-view');
+                    stepContainer.innerHTML = renderStepGuide(item, extraId);
+                    stepContainer.classList.add('active');
+                    lucide.createIcons();
+                }
+            }
+            
+            // FIX: Guaranteed scroll-to-top execution
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+                document.body.scrollTop = 0; // For Safari
+                document.documentElement.scrollTop = 0; // For Chrome/Firefox
+            }, 50); 
+        }
+
+        // --- INITIALIZATION ---
         
-        <button onclick="navigateTo('cleanser')" class="w-full bg-blue-600 text-white font-bold py-3.5 px-4 rounded-xl shadow hover:bg-blue-700 btn-press transition mb-3 text-center flex justify-center items-center gap-2">
-          View Step 1 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-        </button>
-        <span class="block text-center text-xs font-semibold text-amber-800">👉 Don’t skip this step – most people do.</span>
-      </div>
-
-      <!-- Step 2 Placeholder -->
-      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 opacity-60">
-        <span class="text-gray-500 font-bold uppercase tracking-wider text-xs block mb-1">Step 2 - Treat</span>
-        <h2 class="text-xl font-bold text-gray-800 mb-2">Apply Glow Oil</h2>
-        <p class="text-gray-500 text-sm">Lock in hydration with 3-4 drops of antioxidant-rich oil.</p>
-      </div>
-    </div>
-
-    <!-- ==========================================
-         PAGE: ROUTINE - NIGHT SERUM
-    =========================================== -->
-    <div id="page-night-serum" class="page">
-      <div class="mb-4 flex items-center gap-2" onclick="navigateTo('home')">
-        <svg class="w-5 h-5 text-gray-500 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-        <span class="text-gray-500 font-medium cursor-pointer">Back to Routines</span>
-      </div>
-
-      <h1 class="text-3xl font-bold mb-2 text-indigo-900">Night Recovery System</h1>
-      <p class="text-gray-600 mb-8">Repair your skin barrier while you sleep.</p>
-
-      <!-- Step 1 Integration (Cleanser) -->
-      <div class="bg-indigo-50 border-2 border-indigo-300 rounded-2xl p-6 shadow-sm mb-6 relative overflow-hidden">
-        <div class="absolute top-0 right-0 bg-indigo-400 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg tracking-wider uppercase">Crucial Step</div>
-        <span class="text-indigo-700 font-bold uppercase tracking-wider text-xs block mb-1 mt-2">Step 1 - Remove The Day</span>
-        <h2 class="text-xl font-bold text-gray-900 mb-2">Deep Cleanse</h2>
-        <p class="text-gray-700 text-sm mb-5">Your night serum won't work if it's blocked by SPF, makeup, and daily pollution. A gentle cleanse is non-negotiable.</p>
-        
-        <button onclick="navigateTo('cleanser')" class="w-full bg-blue-600 text-white font-bold py-3.5 px-4 rounded-xl shadow hover:bg-blue-700 btn-press transition mb-3 text-center flex justify-center items-center gap-2">
-          View Step 1 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-        </button>
-        <span class="block text-center text-xs font-semibold text-indigo-800">👉 Don’t skip this step – most people do.</span>
-      </div>
-
-       <!-- Step 2 Placeholder -->
-       <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 opacity-60">
-        <span class="text-gray-500 font-bold uppercase tracking-wider text-xs block mb-1">Step 2 - Repair</span>
-        <h2 class="text-xl font-bold text-gray-800 mb-2">Apply Night Serum</h2>
-        <p class="text-gray-500 text-sm">Gently pat into skin and let the active ingredients work overnight.</p>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- ==========================================
-       JAVASCRIPT LOGIC & DATA
-  =========================================== -->
-  <script>
-    // 1. PRODUCT DATA (Centralized Object)
-    // You can easily add Step 2 and Step 3 products here later
-    const products = [
-      {
-        id: "cleanser",
-        name: "Cetaphil Gentle Skin Cleanser",
-        category: "skincare",
-        subcategory: "cleanser",
-        image: "https://github.com/direct-deals/Direct-Deals/blob/main/-original-imahgmzgxehhrevs.jpeg?raw=true",
-        affiliate: "https://fktr.in/Wm7HDWO",
-        role: "Step 1 - Cleanser",
-        description: "Gentle cleanser for acne-prone and sensitive skin"
-      }
-    ];
-
-    // 2. ROUTING LOGIC
-    // Simulates multi-page routing in a single HTML file
-    function navigateTo(pageId) {
-      // Hide all pages
-      document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-      });
-      
-      // Show the requested page
-      const targetPage = document.getElementById('page-' + pageId);
-      if (targetPage) {
-        targetPage.classList.add('active');
-      }
-
-      // Scroll to top to mimic a real page load
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // 3. DYNAMIC RENDERING LOGIC
-    // Automatically generates the product cards in the "Skincare" category tab
-    function renderSkincareProducts() {
-      const listContainer = document.getElementById('product-list');
-      const skincareProducts = products.filter(p => p.category === 'skincare');
-
-      listContainer.innerHTML = skincareProducts.map(product => `
-        <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
-          <span class="text-amber-600 font-bold uppercase tracking-wide text-xs block mb-2">${product.role}</span>
-          <h2 class="text-xl text-gray-900 font-bold mb-4 leading-tight">${product.name}</h2>
-          
-          <div class="bg-gray-50 p-4 rounded-2xl mb-5 flex justify-center">
-            <img src="${product.image}" alt="${product.name}" class="h-48 w-auto object-contain rounded-xl mix-blend-multiply">
-          </div>
-          
-          <button onclick="navigateTo('${product.id}')" class="w-full bg-gray-900 text-white font-bold py-4 px-4 rounded-xl hover:bg-gray-800 btn-press transition shadow-sm">
-            View Product Details
-          </button>
-        </div>
-      `).join('');
-    }
-
-    // Initialize the application once the DOM is fully loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      renderSkincareProducts();
-    });
-
-  </script>
+        window.onload = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const contentId = urlParams.get('id');
+            const catId = urlParams.get('cat');
+            
+            if (contentId) {
+                navigate('article', contentId);
+            } else if (catId) {
+                navigate('category', catId);
+            } else {
+                navigate('home'); // Default
+            }
+        };
+    </script>
 </body>
 </html>
+
 
