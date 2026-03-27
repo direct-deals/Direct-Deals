@@ -34,11 +34,9 @@
         .view-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Hide scrollbar for clean horizontal scrolling */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Tap effect for mobile buttons */
         .btn-press:active {
             transform: scale(0.98);
             opacity: 0.9;
@@ -63,7 +61,6 @@
             </a>
         </div>
 
-        <!-- TOP QUICK NAVIGATION -->
         <div class="border-t border-gray-100 bg-white/80 backdrop-blur-md">
             <div class="max-w-screen-xl mx-auto px-4 py-3 flex gap-3 overflow-x-auto hide-scrollbar items-center">
                 <span class="text-xs font-black uppercase tracking-widest text-gray-400 mr-2 shrink-0">Explore:</span>
@@ -75,13 +72,10 @@
         </div>
     </nav>
 
-    <!-- MAIN CONTAINER -->
     <main id="app-container">
         
-        <!-- ==================== HOME VIEW ==================== -->
+        <!-- HOME VIEW -->
         <div id="home-view" class="view-section active pb-24">
-            
-            <!-- HERO SECTION -->
             <section class="relative pt-16 pb-20 px-4 overflow-hidden soft-gradient-bg">
                 <div class="relative z-10 max-w-4xl mx-auto text-center">
                     <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-gray-100 text-sm font-bold text-gray-700 mb-8">
@@ -97,14 +91,12 @@
                 </div>
             </section>
 
-            <!-- ABOUT US / TRUST BUILDING SECTION -->
             <section class="py-16 px-4 max-w-screen-xl mx-auto -mt-10 relative z-20">
                 <div class="bg-white rounded-[40px] shadow-2xl border border-gray-100 p-8 md:p-16">
                     <div class="text-center mb-12">
                         <h2 class="text-3xl md:text-4xl font-black tracking-tighter mb-4">Why Trust Direct Deals? 🤔</h2>
                         <p class="text-lg text-gray-500 max-w-2xl mx-auto">We don't just list products; we curate solutions. Every routine and guide on this platform is heavily researched and verified for quality.</p>
                     </div>
-                    
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                         <div class="p-6 bg-purple-50 rounded-3xl border border-purple-100 hover:-translate-y-2 transition-transform">
                             <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-purple-600">
@@ -131,16 +123,12 @@
                 </div>
             </section>
 
-            <!-- CATEGORY HUBS -->
             <section class="py-16 px-4 max-w-screen-xl mx-auto">
                 <div class="flex items-center gap-3 mb-12 justify-center md:justify-start">
                     <div class="w-3 h-8 gradient-bg rounded-full hidden md:block"></div>
                     <h2 class="text-4xl font-black tracking-tighter text-center md:text-left">Explore Our Categories</h2>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    
-                    <!-- Glow & Skincare -->
                     <div onclick="navigate('category', 'glow')" class="group cursor-pointer relative overflow-hidden rounded-[40px] shadow-lg hover:shadow-2xl transition-all h-[400px]">
                         <img src="https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
@@ -153,8 +141,6 @@
                             </button>
                         </div>
                     </div>
-
-                    <!-- Style & Fashion -->
                     <div onclick="navigate('category', 'style')" class="group cursor-pointer relative overflow-hidden rounded-[40px] shadow-lg hover:shadow-2xl transition-all h-[400px]">
                         <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
@@ -166,8 +152,6 @@
                             </button>
                         </div>
                     </div>
-
-                    <!-- Earn Online -->
                     <div onclick="navigate('category', 'earn')" class="group cursor-pointer relative overflow-hidden rounded-[40px] shadow-lg hover:shadow-2xl transition-all h-[400px]">
                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
@@ -180,42 +164,28 @@
                             </button>
                         </div>
                     </div>
-
                 </div>
             </section>
         </div>
 
-        <!-- ==================== CATEGORY VIEW ==================== -->
         <div id="category-view" class="view-section pb-24 pt-10">
             <div class="max-w-screen-xl mx-auto px-4">
                 <button onclick="navigate('home')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit btn-press">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i> Home
                 </button>
-
                 <div class="text-center md:text-left mb-12">
                     <h1 id="cat-title" class="text-4xl md:text-6xl font-black tracking-tighter mb-4">Category Name</h1>
                     <p id="cat-desc" class="text-xl text-gray-500">Discover all our verified guides below.</p>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="category-grid">
-                    <!-- Populated by JS -->
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="category-grid"></div>
             </div>
         </div>
 
-        <!-- ==================== ARTICLE VIEW ==================== -->
-        <div id="article-view" class="view-section pb-24">
-            <!-- Content injected via JS -->
-        </div>
-
-        <!-- ==================== STEP GUIDE VIEW ==================== -->
-        <div id="step-view" class="view-section pb-24 pt-10">
-            <!-- Step detailed content injected via JS -->
-        </div>
+        <div id="article-view" class="view-section pb-24"></div>
+        <div id="step-view" class="view-section pb-24 pt-10"></div>
 
     </main>
 
-    <!-- FOOTER -->
     <footer class="bg-gray-900 text-white py-16 px-4">
         <div class="max-w-screen-xl mx-auto grid md:grid-cols-3 gap-12">
             <div>
@@ -247,16 +217,9 @@
     </footer>
 
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
 
-        // --- CONTENT DATABASE ---
         const CONTENT = [
-            // ==========================================
-            // @a@ SKINCARE & GLOW CATEGORY PRODUCTS
-            // ==========================================
-            
-            // 1. DEDICATED PRODUCT: CLEANSER (Step 1)
             {
                 id: 'cetaphil-cleanser',
                 type: 'product',
@@ -276,8 +239,47 @@
                 finalCta: 'Start Clear Skin Routine',
                 finalLink: 'https://fktr.in/Wm7HDWO'
             },
-
-            // 2. ROUTINE: GLOW BOOSTING OIL
+            {
+                id: 'gua-sha-tool',
+                type: 'product',
+                category: 'glow',
+                badge: '💎 Sculpt & Glow',
+                title: 'Gua Sha Facial Tool',
+                subtitle: 'The secret to a snatched, glowing face',
+                thumb: 'https://github.com/direct-deals/Direct-Deals/blob/main/-473Wx593H-701801182-white-MODEL.webp?raw=true',
+                heroImg: 'https://github.com/direct-deals/Direct-Deals/blob/main/-473Wx593H-701801182-white-MODEL.webp?raw=true',
+                problem: '⚠️ Fluid retention and poor circulation make the face look puffy and tired, no matter how much serum you use.',
+                benefits: [
+                    'Naturally contours and sculpts the jawline and cheekbones.',
+                    'Improves blood circulation for a lasting rosy glow.',
+                    'Helps your facial oils and serums absorb 2x deeper into the skin.',
+                    'Reduces morning puffiness and relaxes facial tension.'
+                ],
+                usage: 'After applying 3-4 drops of Glow Oil, use the tool in upward and outward strokes. Use the curved side for the jawline and the flat side for cheeks.',
+                finalCta: 'Get Gua Sha Tool',
+                finalLink: 'https://ajiio.in/H49nfy9'
+            },
+            {
+                id: 'full-skincare-routine',
+                type: 'routine',
+                category: 'glow',
+                badge: '🏆 Master Guide',
+                title: 'The Ultimate Glass Skin Routine',
+                subtitle: 'From morning prep to night recovery.',
+                thumb: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=800',
+                heroImg: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=1600',
+                hookProb: 'Confused about the order of products? Most people waste money by applying skincare in the wrong sequence.',
+                hookStory: 'I spent thousands on luxury creams only to realize my technique was wrong. This master sequence is designed to maximize absorption and give you that "filter-like" skin naturally.',
+                steps: [
+                    { title: 'Step 1: Purify', desc: 'Start with a gentle cleanser to remove impurities without stripping natural oils.', btn: 'View Cleanser', link: 'internal:cetaphil-cleanser' },
+                    { title: 'Step 2: Activate', desc: 'Apply the Glow Boosting Oil while skin is slightly damp to lock in hydration.', btn: 'View Glow Oil', link: 'internal:glow-boosting-oil' },
+                    { title: 'Step 3: Sculpt', desc: 'Use your Gua Sha tool to drain toxins and contour your features.', btn: 'View Gua Sha Tool', link: 'internal:gua-sha-tool' },
+                    { title: 'Step 4: Protect (AM)', desc: 'Never leave home without invisible SPF 50 protection to prevent sun damage.', btn: 'View Sunscreen', link: 'internal:sun-protection' },
+                    { title: 'Step 5: Repair (PM)', desc: 'Swap your day protection for a potent Saffron Night Recovery Serum before bed.', btn: 'View Night Serum', link: 'internal:night-glow-routine' }
+                ],
+                finalCta: 'Shop the Complete Collection',
+                finalLink: 'https://direct-deals.github.io/Direct-Deals/?cat=glow'
+            },
             {
                 id: 'glow-boosting-oil',
                 type: 'routine',
@@ -294,18 +296,22 @@
                         title: 'Cleanse Your Canvas', 
                         desc: 'Before applying your glow oil, you need a perfectly clean base so the ingredients can actually penetrate your pores instead of sitting on top of dirt.', 
                         btn: 'View Step 1', 
-                        link: 'internal:cetaphil-cleanser', // Connects directly to the product page
-                        crucial: true, // Highlights as an important step
+                        link: 'internal:cetaphil-cleanser',
+                        crucial: true,
                         subtext: '👉 Don’t skip this step – most people do.'
                     },
                     { title: 'Apply 3-4 Drops', desc: 'Warm the Glow Boosting Oil in your hands and gently press it into your skin.', btn: 'Get Glow Oil (₹1,499)', link: 'https://bitli.in/IO9gWvd' },
-                    { title: 'Gua Sha Massage', desc: 'Use a Gua Sha to sculpt the face and push the oil deeper into the pores.', btn: 'View Gua Sha Tools', link: '#' }
+                    { 
+                        title: 'Gua Sha Massage', 
+                        desc: 'Use a Gua Sha to sculpt the face and push the oil deeper into the pores for maximum glow.', 
+                        btn: 'View Gua Sha Tool', 
+                        link: 'internal:gua-sha-tool',
+                        subtext: '✨ Essential for that "Snatched" look.' 
+                    }
                 ],
                 finalCta: 'Shop Glow Boosting Oil',
                 finalLink: 'https://bitli.in/IO9gWvd'
             },
-
-            // 3. ROUTINE: NIGHT RECOVERY
             {
                 id: 'night-glow-routine',
                 type: 'routine',
@@ -322,7 +328,7 @@
                         title: 'Deep Cleanse', 
                         desc: 'Your night serum won\'t work if it\'s blocked by SPF, makeup, and daily pollution. A gentle cleanse is non-negotiable.', 
                         btn: 'View Step 1', 
-                        link: 'internal:cetaphil-cleanser', // Connects directly to the product page
+                        link: 'internal:cetaphil-cleanser',
                         crucial: true,
                         subtext: '👉 Don’t skip this step – most people do.'
                     },
@@ -330,10 +336,8 @@
                     { title: 'Lock with Face Oil', desc: 'Seal in the magic instantly without greasiness for velvet-soft skin.', btn: 'Try Glow Oil (₹1,499)', link: 'https://bitli.in/IO9gWvd' }
                 ],
                 finalCta: 'Get the Complete Glow Kit',
-                finalLink: 'https://bitli.in/A407aX7'
+                finalLink: 'https://direct-deals.github.io/Direct-Deals/?cat=glow'
             },
-
-            // 4. ROUTINE: SUN PROTECTION
             {
                 id: 'sun-protection',
                 type: 'routine',
@@ -352,10 +356,6 @@
                 finalCta: 'Secure Your Sunscreen',
                 finalLink: 'https://bitli.in/E2CAxuE'
             },
-            
-            // ==========================================
-            // @b@ STYLE & FASHION CATEGORY PRODUCTS
-            // ==========================================
             {
                 id: 'minimal-outfit',
                 type: 'routine',
@@ -375,16 +375,12 @@
                 finalCta: 'Shop the Full Look',
                 finalLink: '#'
             },
-
-            // ==========================================
-            // @c@ EARN ONLINE CATEGORY PRODUCTS
-            // ==========================================
             {
                 id: 'beginner-income',
                 type: 'transformation',
                 category: 'earn',
                 badge: '💰 Life Changing',
-                title: 'How Beginners Make ₹5000/Day',
+                title: 'How Beginners Make $50/Day',
                 subtitle: 'No-skill side hustle system',
                 thumb: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?q=80&w=800',
                 heroImg: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1600',
@@ -402,8 +398,6 @@
                 link: '#'
             }
         ];
-
-        // --- RENDER LOGIC ---
 
         function createCardHTML(item) {
             return `
@@ -427,9 +421,6 @@
             </div>`;
         }
 
-        // --- PAGE GENERATORS ---
-
-        // GENERATOR: Single Product Page (e.g. Cleanser)
         function renderProduct(item) {
             let benefitsHTML = item.benefits.map(b => `
                 <li class="flex items-start gap-3 text-gray-700 text-sm md:text-base">
@@ -471,7 +462,7 @@
                             <a href="${item.finalLink}" target="_blank" rel="noopener noreferrer" class="flex justify-center items-center gap-2 w-full bg-blue-600 text-white text-center font-black text-lg py-5 px-6 rounded-2xl shadow-lg hover:bg-blue-700 btn-press transition-all">
                                 ${item.finalCta} <i data-lucide="external-link" class="w-5 h-5"></i>
                             </a>
-                            <button onclick="navigate('category', '${item.category}')" class="block w-full bg-gray-100 text-gray-800 text-center font-bold text-md py-5 px-6 rounded-2xl hover:bg-gray-200 btn-press transition-all">
+                            <button onclick="navigate('article', 'full-skincare-routine')" class="block w-full bg-gray-100 text-gray-800 text-center font-bold text-md py-5 px-6 rounded-2xl hover:bg-gray-200 btn-press transition-all">
                                 See Full Routine List
                             </button>
                         </div>
@@ -480,11 +471,8 @@
             `;
         }
 
-        // GENERATOR: Full Routine Hub
         function renderRoutine(item) {
             let stepsHTML = item.steps.map((step, index) => {
-                
-                // Advanced Link routing check
                 const isInternalLink = step.link && step.link.startsWith('internal:');
                 const isGuide = step.guide && !isInternalLink && step.link === '#';
                 
@@ -500,7 +488,6 @@
                     btnAction = `onclick="navigate('step', '${item.id}', ${index})"`;
                 }
 
-                // Crucial Styling UI
                 const cardStyle = step.crucial 
                     ? 'bg-amber-50 border-amber-400 border-2 shadow-md' 
                     : 'bg-white border-gray-100 border shadow-sm';
@@ -526,7 +513,7 @@
                         ${index + 1}
                     </div>
                     <div class="flex-grow w-full">
-                        ${step.crucial ? `<span class="text-amber-700 font-bold uppercase tracking-wider text-xs block mb-1">Step ${index + 1} - Preparation</span>` : ''}
+                        ${step.crucial ? `<span class="text-amber-700 font-bold uppercase tracking-wider text-xs block mb-1">Preparation</span>` : ''}
                         <h3 class="text-xl md:text-2xl font-black mb-2">${step.title}</h3>
                         <p class="text-gray-600 font-medium text-sm md:text-base mb-4 sm:mb-0 leading-relaxed">${step.desc}</p>
                     </div>
@@ -560,7 +547,7 @@
                     <div class="mb-16">
                         <div class="flex items-center gap-3 mb-8">
                             <div class="w-3 h-8 gradient-bg rounded-full"></div>
-                            <h2 class="text-2xl md:text-3xl font-black tracking-tighter">The Step-by-Step Guide</h2>
+                            <h2 class="text-2xl md:text-3xl font-black tracking-tighter">Complete Step-by-Step Sequence</h2>
                         </div>
                         ${stepsHTML}
                     </div>
@@ -569,8 +556,8 @@
                         <div class="flex justify-center gap-2 mb-6 text-purple-600">
                             <i data-lucide="check-circle-2"></i> <i data-lucide="check-circle-2"></i> <i data-lucide="check-circle-2"></i>
                         </div>
-                        <h2 class="text-2xl md:text-3xl font-black mb-4">Ready for the Transformation?</h2>
-                        <p class="text-gray-600 font-medium mb-8">Simple routine. Beginner friendly. Used by thousands.</p>
+                        <h2 class="text-2xl md:text-3xl font-black mb-4">Start Your Transformation</h2>
+                        <p class="text-gray-600 font-medium mb-8">Follow this sequence daily for a consistent glass-skin glow.</p>
                         <a href="${item.finalLink}" target="_blank" class="inline-block px-8 py-4 bg-black text-white rounded-full font-black text-lg uppercase tracking-widest shadow-xl hover:scale-105 transition-transform w-full md:w-auto btn-press">
                             ${item.finalCta}
                         </a>
@@ -579,7 +566,6 @@
             `;
         }
 
-        // GENERATOR: Transformation Guide (e.g. Earn Online)
         function renderTransformation(item) {
             let benefitsHTML = item.benefits.map(b => `
                 <div class="flex items-start gap-4 mb-4">
@@ -593,31 +579,23 @@
                     <button onclick="navigate('category', '${item.category}')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit btn-press">
                         <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to ${item.category}
                     </button>
-
                     <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-[1.1]">${item.title}</h1>
-                    
                     <img src="${item.heroImg}" class="w-full h-[300px] md:h-[400px] object-cover rounded-[40px] shadow-xl mb-12">
-
                     <div class="prose max-w-none">
                         <h2 class="text-2xl md:text-3xl font-black tracking-tighter mb-6 text-red-500">The Problem</h2>
                         <p class="text-xl md:text-2xl text-gray-700 font-medium italic mb-10 border-l-4 border-red-500 pl-6 py-2">"${item.problem}"</p>
-                        
                         <p class="text-lg text-gray-600 leading-relaxed mb-12">${item.story}</p>
-
                         <div class="bg-gray-900 text-white p-8 md:p-12 rounded-[40px] mb-12 shadow-2xl">
                             <h2 class="text-2xl md:text-3xl font-black tracking-tighter mb-6 gradient-text">The Solution</h2>
                             <p class="text-lg text-gray-300 leading-relaxed mb-10">${item.solutionIntro}</p>
-                            
                             <div class="bg-gray-800 rounded-3xl p-6 md:p-8 mb-10">
                                 <h3 class="text-lg md:text-xl font-bold mb-6 uppercase tracking-widest text-gray-400">What You Get:</h3>
                                 ${benefitsHTML}
                             </div>
-
                             <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-2xl p-6 mb-10 flex gap-4 items-start">
                                 <i data-lucide="zap" class="w-6 h-6 text-yellow-500 shrink-0 mt-1"></i>
                                 <p class="text-yellow-500 font-bold text-sm md:text-base">${item.urgency}</p>
                             </div>
-
                             <a href="${item.link}" target="_blank" class="block w-full text-center py-5 gradient-bg text-white rounded-full font-black text-lg md:text-xl shadow-lg hover:scale-[1.02] transition-transform btn-press">
                                 ${item.cta}
                             </a>
@@ -627,12 +605,11 @@
             `;
         }
 
-        // GENERATOR: Step Text Guide (Fallback for text-only guides)
         function renderStepGuide(routine, stepIndex) {
             const step = routine.steps[stepIndex];
             const guide = step.guide || {
                 title: step.title,
-                content: `<p class="mb-4 text-xl">${step.desc}</p><p>We are still building this detailed guide. Check back soon!</p>`,
+                content: `<p class="mb-4 text-xl">${step.desc}</p><p>Check back soon!</p>`,
                 image: routine.heroImg
             };
 
@@ -641,112 +618,55 @@
                     <button onclick="navigate('article', '${routine.id}')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit btn-press">
                         <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Routine
                     </button>
-                    
                     <span class="inline-block px-4 py-1 bg-purple-100 text-purple-700 font-bold rounded-full text-sm mb-4">Step ${parseInt(stepIndex) + 1}</span>
                     <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-8 leading-[1.1]">${guide.title}</h1>
-                    
                     ${guide.image ? `<img src="${guide.image}" class="w-full h-[300px] md:h-[450px] object-cover rounded-[40px] shadow-xl mb-10">` : ''}
-
-                    <div class="prose max-w-none text-lg text-gray-700 leading-relaxed mb-12">
-                        ${guide.content}
-                    </div>
-
-                    ${guide.productLink && guide.productLink !== '#' ? `
-                    <div class="bg-gray-900 text-white p-8 rounded-[32px] text-center shadow-2xl mb-12">
-                        <h3 class="text-2xl font-black mb-4">Ready to perform this step?</h3>
-                        <a href="${guide.productLink}" target="_blank" class="inline-block px-8 py-4 gradient-bg text-white rounded-full font-black text-lg uppercase tracking-widest shadow-xl hover:scale-105 transition-transform btn-press">
-                            ${guide.productBtn || 'Get Product'}
-                        </a>
-                    </div>
-                    ` : ''}
+                    <div class="prose max-w-none text-lg text-gray-700 leading-relaxed mb-12">${guide.content}</div>
                 </div>
             `;
         }
 
-        // --- NAVIGATION CONTROLLER ---
-
         function navigate(view, id = null, extraId = null) {
-            // Hide everything first
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-            
             if (view === 'home') {
                 document.getElementById('home-view').classList.add('active');
-                window.history.replaceState({}, document.title, window.location.pathname);
-            } 
-            else if (view === 'category' && id) {
+            } else if (view === 'category' && id) {
                 const grid = document.getElementById('category-grid');
                 const title = document.getElementById('cat-title');
                 const desc = document.getElementById('cat-desc');
-                
                 if(id === 'glow') { title.innerText = 'Skincare & Glow ✨'; desc.innerText = 'Verified routines for flawless skin.'; }
                 if(id === 'style') { title.innerText = 'Style & Fashion 👗'; desc.innerText = 'Curated looks and aesthetic upgrades.'; }
                 if(id === 'earn') { title.innerText = 'Earn Online 💸'; desc.innerText = 'Proven systems to start making income.'; }
-
                 const filtered = CONTENT.filter(c => c.category === id);
-                if(filtered.length > 0) {
-                    grid.innerHTML = filtered.map(createCardHTML).join('');
-                } else {
-                    grid.innerHTML = '<p class="text-gray-400 font-bold mt-8">Coming Soon...</p>';
-                }
-                
+                grid.innerHTML = filtered.length > 0 ? filtered.map(createCardHTML).join('') : '<p class="text-gray-400 font-bold mt-8">Coming Soon...</p>';
                 document.getElementById('category-view').classList.add('active');
-                window.history.replaceState({}, document.title, `?cat=${id}`);
-                lucide.createIcons();
-            }
-            else if (view === 'article' && id) {
+            } else if (view === 'article' && id) {
                 const item = CONTENT.find(c => c.id === id);
                 if (item) {
                     const articleContainer = document.getElementById('article-view');
-                    
-                    // Render correct view based on data type
-                    if(item.type === 'routine') {
-                        articleContainer.innerHTML = renderRoutine(item);
-                    } else if (item.type === 'transformation') {
-                        articleContainer.innerHTML = renderTransformation(item);
-                    } else if (item.type === 'product') {
-                        articleContainer.innerHTML = renderProduct(item);
-                    }
-                    
+                    if(item.type === 'routine') articleContainer.innerHTML = renderRoutine(item);
+                    else if (item.type === 'transformation') articleContainer.innerHTML = renderTransformation(item);
+                    else if (item.type === 'product') articleContainer.innerHTML = renderProduct(item);
                     articleContainer.classList.add('active');
-                    lucide.createIcons();
-                    window.history.replaceState({}, document.title, `?id=${id}`);
                 }
-            }
-            else if (view === 'step' && id && extraId !== null) {
+            } else if (view === 'step' && id && extraId !== null) {
                 const item = CONTENT.find(c => c.id === id);
                 if (item && item.steps[extraId]) {
                     const stepContainer = document.getElementById('step-view');
                     stepContainer.innerHTML = renderStepGuide(item, extraId);
                     stepContainer.classList.add('active');
-                    lucide.createIcons();
                 }
             }
-            
-            // Guaranteed scroll-to-top execution
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-                document.body.scrollTop = 0; // For Safari
-                document.documentElement.scrollTop = 0; // For Chrome/Firefox
-            }, 50); 
+            setTimeout(() => { window.scrollTo(0, 0); lucide.createIcons(); }, 50); 
         }
 
-        // --- INITIALIZATION ---
-        
         window.onload = () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const contentId = urlParams.get('id');
-            const catId = urlParams.get('cat');
-            
-            if (contentId) {
-                navigate('article', contentId);
-            } else if (catId) {
-                navigate('category', catId);
-            } else {
-                navigate('home'); // Default
-            }
+            if (urlParams.get('id')) navigate('article', urlParams.get('id'));
+            else if (urlParams.get('cat')) navigate('category', urlParams.get('cat'));
+            else navigate('home');
         };
     </script>
 </body>
 </html>
-
 
