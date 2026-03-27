@@ -626,10 +626,15 @@
             `;
         }
 
+        // UPDATED NAVIGATION SYSTEM WITH URL HISTORY
         function navigate(view, id = null, extraId = null) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            
+            // Generate the separate link URL parameters
+            let newUrl = window.location.pathname;
             if (view === 'home') {
                 document.getElementById('home-view').classList.add('active');
+                newUrl += "";
             } else if (view === 'category' && id) {
                 const grid = document.getElementById('category-grid');
                 const title = document.getElementById('cat-title');
@@ -640,6 +645,7 @@
                 const filtered = CONTENT.filter(c => c.category === id);
                 grid.innerHTML = filtered.length > 0 ? filtered.map(createCardHTML).join('') : '<p class="text-gray-400 font-bold mt-8">Coming Soon...</p>';
                 document.getElementById('category-view').classList.add('active');
+                newUrl += "?cat=" + id;
             } else if (view === 'article' && id) {
                 const item = CONTENT.find(c => c.id === id);
                 if (item) {
@@ -649,6 +655,7 @@
                     else if (item.type === 'product') articleContainer.innerHTML = renderProduct(item);
                     articleContainer.classList.add('active');
                 }
+                newUrl += "?id=" + id;
             } else if (view === 'step' && id && extraId !== null) {
                 const item = CONTENT.find(c => c.id === id);
                 if (item && item.steps[extraId]) {
@@ -656,15 +663,43 @@
                     stepContainer.innerHTML = renderStepGuide(item, extraId);
                     stepContainer.classList.add('active');
                 }
+                newUrl += "?id=" + id + "&step=" + extraId;
             }
-            setTimeout(() => { window.scrollTo(0, 0); lucide.createIcons(); }, 50); 
+
+            // Update the browser URL without refreshing
+            window.history.replaceState({view, id, extraId}, '', newUrl);
+            
+            setTimeout(() => { 
+                window.scrollTo(0, 0); 
+                lucide.createIcons(); 
+            }, 50); 
         }
 
+        // LOAD FROM URL PARAMETERS
         window.onload = () => {
             const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('id')) navigate('article', urlParams.get('id'));
-            else if (urlParams.get('cat')) navigate('category', urlParams.get('cat'));
-            else navigate('home');
+            const id = urlParams.get('id');
+            const cat = urlParams.get('cat');
+            const step = urlParams.get('step');
+            
+            if (id) {
+                if (step !== null) navigate('step', id, step);
+                else navigate('article', id);
+            } else if (cat) {
+                navigate('category', cat);
+            } else {
+                navigate('home');
+            }
+        };
+
+        // HANDLE BROWSER BACK BUTTON
+        window.onpopstate = (event) => {
+            if (event.state) {
+                const {view, id, extraId} = event.state;
+                navigate(view, id, extraId);
+            } else {
+                navigate('home');
+            }
         };
     </script>
 </body>
