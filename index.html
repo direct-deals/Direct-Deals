@@ -221,6 +221,48 @@
 
         const CONTENT = [
             {
+                id: 'dark-spot-routine',
+                type: 'solution', 
+                category: 'glow',
+                badge: '✨ Viral Routine',
+                title: 'Dark Spot Removal Routine for Bright Skin ✨',
+                subtitle: 'Achieve clearer, glowing skin from home.',
+                thumb: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/Screenshot_20260328_153848.jpg',
+                heroImg: 'https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/Screenshot_20260328_153848.jpg',
+                hook: {
+                    heading: "Struggling with dark spots and dull skin?",
+                    subtext: "This simple daily routine can help you achieve brighter, clearer skin at home."
+                },
+                routineSteps: [
+                    { text: "Clean your face with gentle face wash" },
+                    { text: "Apply a small amount of brightening cream" },
+                    { 
+                        text: "Massage in upward circular motion", 
+                        link: "gua-sha-tool", 
+                        btnText: "Use Gua Sha Tool" 
+                    },
+                    { text: "Use daily (morning + night)" }
+                ],
+                benefits: [
+                    "Helps reduce dark spots",
+                    "Improves skin brightness",
+                    "Smooth and soft texture",
+                    "Easy daily routine"
+                ],
+                problemAgitation: "Most people use random products without consistency — that’s why results don’t come.",
+                productBlock: {
+                    line: "This cream is used in this routine",
+                    btnText: "Get This Cream",
+                    link: "https://fktr.in/fIbKCBw"
+                },
+                trustPoints: [
+                    "Trusted by thousands",
+                    "Daily-use formula",
+                    "Easy to use",
+                    "Beginner friendly"
+                ]
+            },
+            {
                 id: 'cetaphil-cleanser',
                 type: 'product',
                 category: 'glow',
@@ -413,12 +455,102 @@
                     <p class="text-gray-500 font-medium mb-8">${item.subtitle}</p>
                     <div class="mt-auto">
                         <span class="text-sm font-bold uppercase tracking-widest flex items-center justify-center md:justify-start gap-2 text-black">
-                            ${item.type === 'routine' ? 'See Full Routine' : (item.type === 'product' ? 'View Details' : 'Start Learning')} 
+                            ${item.type === 'routine' || item.type === 'solution' ? 'See Full Routine' : (item.type === 'product' ? 'View Details' : 'Start Learning')} 
                             <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-2 transition-transform"></i>
                         </span>
                     </div>
                 </div>
             </div>`;
+        }
+
+        function renderSolution(item) {
+            return `
+            <div class="max-w-screen-md mx-auto pt-12 px-4">
+                <button onclick="navigate('category', '${item.category}')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit btn-press">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to ${item.category}
+                </button>
+
+                <!-- SECTION 1: HOOK -->
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-4 text-gray-900">${item.title}</h1>
+                    <div class="bg-indigo-50 border border-indigo-100 p-8 rounded-[32px] shadow-sm">
+                        <h2 class="text-2xl font-bold text-indigo-900 mb-2">${item.hook.heading}</h2>
+                        <p class="text-lg text-indigo-700 font-medium">${item.hook.subtext}</p>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: IMAGE -->
+                <div class="mb-16 rounded-[40px] overflow-hidden shadow-2xl border-4 border-white">
+                    <img src="${item.heroImg}" alt="Routine Image" class="w-full h-auto object-cover">
+                </div>
+
+                <!-- SECTION 3: ROUTINE -->
+                <div class="mb-16">
+                    <h3 class="text-2xl font-black mb-8 flex items-center gap-3">
+                        <span class="w-2 h-8 bg-indigo-600 rounded-full"></span> The Routine
+                    </h3>
+                    <div class="space-y-4">
+                        ${item.routineSteps.map((s, i) => {
+                            const stepText = s.text || s;
+                            const hasLink = s.link;
+                            return `
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-5 p-5 bg-white border border-gray-100 rounded-2xl shadow-sm">
+                                <div class="flex items-center gap-5 flex-grow">
+                                    <span class="w-10 h-10 shrink-0 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-black">${i+1}</span>
+                                    <p class="text-lg font-bold text-gray-800">${stepText}</p>
+                                </div>
+                                ${hasLink ? `
+                                    <button onclick="navigate('article', '${s.link}')" class="mt-3 sm:mt-0 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-sm font-bold border border-indigo-100 hover:bg-indigo-100 transition-colors flex items-center gap-2 shrink-0 justify-center btn-press">
+                                        ${s.btnText} <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                    </button>
+                                ` : ''}
+                            </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+
+                <!-- SECTION 4: BENEFITS -->
+                <div class="bg-gray-900 text-white p-10 rounded-[40px] mb-16 shadow-xl">
+                    <h3 class="text-2xl font-black mb-8 text-center uppercase tracking-widest">Results You'll Get</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        ${item.benefits.map(b => `
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check-circle" class="text-green-400 w-6 h-6 shrink-0"></i>
+                                <span class="font-bold text-lg text-gray-200">${b}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <!-- SECTION 5: PROBLEM AGITATION -->
+                <div class="text-center mb-16 p-8 border-2 border-dashed border-red-200 rounded-[32px] bg-red-50/50">
+                    <i data-lucide="alert-circle" class="w-10 h-10 text-red-500 mx-auto mb-4"></i>
+                    <p class="text-xl font-bold text-red-700 italic">"${item.problemAgitation}"</p>
+                </div>
+
+                <!-- SECTION 6: PRODUCT BLOCK -->
+                <div class="bg-white border-2 border-indigo-600 p-8 rounded-[40px] shadow-2xl flex flex-col md:flex-row items-center gap-8 mb-16">
+                    <img src="${item.thumb}" class="w-40 h-40 object-cover rounded-3xl border border-gray-100 shadow-md">
+                    <div class="flex-grow text-center md:text-left">
+                        <p class="text-indigo-600 font-black uppercase tracking-widest text-sm mb-2">${item.productBlock.line}</p>
+                        <a href="${item.productBlock.link}" target="_blank" class="inline-flex items-center gap-3 bg-indigo-600 text-white px-10 py-5 rounded-full font-black text-xl hover:bg-indigo-700 transition-all btn-press shadow-lg shadow-indigo-200">
+                            ${item.productBlock.btnText} <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- SECTION 7: TRUST -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20 text-center">
+                    ${item.trustPoints.map(p => `
+                        <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                            <i data-lucide="shield-check" class="w-5 h-5 text-indigo-500 mx-auto mb-2"></i>
+                            <span class="text-xs font-black uppercase tracking-tighter text-gray-600">${p}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            `;
         }
 
         function renderProduct(item) {
@@ -462,9 +594,6 @@
                             <a href="${item.finalLink}" target="_blank" rel="noopener noreferrer" class="flex justify-center items-center gap-2 w-full bg-blue-600 text-white text-center font-black text-lg py-5 px-6 rounded-2xl shadow-lg hover:bg-blue-700 btn-press transition-all">
                                 ${item.finalCta} <i data-lucide="external-link" class="w-5 h-5"></i>
                             </a>
-                            <button onclick="navigate('article', 'full-skincare-routine')" class="block w-full bg-gray-100 text-gray-800 text-center font-bold text-md py-5 px-6 rounded-2xl hover:bg-gray-200 btn-press transition-all">
-                                See Full Routine List
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -581,10 +710,10 @@
                     </button>
                     <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-[1.1]">${item.title}</h1>
                     <img src="${item.heroImg}" class="w-full h-[300px] md:h-[400px] object-cover rounded-[40px] shadow-xl mb-12">
-                    <div class="prose max-w-none">
-                        <h2 class="text-2xl md:text-3xl font-black tracking-tighter mb-6 text-red-500">The Problem</h2>
+                    <div class="prose max-w-none text-lg text-gray-600 leading-relaxed mb-12">
+                         <h2 class="text-2xl md:text-3xl font-black tracking-tighter mb-6 text-red-500">The Problem</h2>
                         <p class="text-xl md:text-2xl text-gray-700 font-medium italic mb-10 border-l-4 border-red-500 pl-6 py-2">"${item.problem}"</p>
-                        <p class="text-lg text-gray-600 leading-relaxed mb-12">${item.story}</p>
+                        <p class="mb-12">${item.story}</p>
                         <div class="bg-gray-900 text-white p-8 md:p-12 rounded-[40px] mb-12 shadow-2xl">
                             <h2 class="text-2xl md:text-3xl font-black tracking-tighter mb-6 gradient-text">The Solution</h2>
                             <p class="text-lg text-gray-300 leading-relaxed mb-10">${item.solutionIntro}</p>
@@ -605,36 +734,13 @@
             `;
         }
 
-        function renderStepGuide(routine, stepIndex) {
-            const step = routine.steps[stepIndex];
-            const guide = step.guide || {
-                title: step.title,
-                content: `<p class="mb-4 text-xl">${step.desc}</p><p>Check back soon!</p>`,
-                image: routine.heroImg
-            };
-
-            return `
-                <div class="max-w-screen-md mx-auto pt-12 px-4">
-                    <button onclick="navigate('article', '${routine.id}')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit btn-press">
-                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Routine
-                    </button>
-                    <span class="inline-block px-4 py-1 bg-purple-100 text-purple-700 font-bold rounded-full text-sm mb-4">Step ${parseInt(stepIndex) + 1}</span>
-                    <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-8 leading-[1.1]">${guide.title}</h1>
-                    ${guide.image ? `<img src="${guide.image}" class="w-full h-[300px] md:h-[450px] object-cover rounded-[40px] shadow-xl mb-10">` : ''}
-                    <div class="prose max-w-none text-lg text-gray-700 leading-relaxed mb-12">${guide.content}</div>
-                </div>
-            `;
-        }
-
-        // UPDATED NAVIGATION SYSTEM WITH URL HISTORY
+        // UPDATED NAVIGATION SYSTEM
         function navigate(view, id = null, extraId = null) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             
-            // Generate the separate link URL parameters
             let newUrl = window.location.pathname;
             if (view === 'home') {
                 document.getElementById('home-view').classList.add('active');
-                newUrl += "";
             } else if (view === 'category' && id) {
                 const grid = document.getElementById('category-grid');
                 const title = document.getElementById('cat-title');
@@ -651,55 +757,25 @@
                 if (item) {
                     const articleContainer = document.getElementById('article-view');
                     if(item.type === 'routine') articleContainer.innerHTML = renderRoutine(item);
+                    else if (item.type === 'solution') articleContainer.innerHTML = renderSolution(item);
                     else if (item.type === 'transformation') articleContainer.innerHTML = renderTransformation(item);
                     else if (item.type === 'product') articleContainer.innerHTML = renderProduct(item);
                     articleContainer.classList.add('active');
                 }
                 newUrl += "?id=" + id;
-            } else if (view === 'step' && id && extraId !== null) {
-                const item = CONTENT.find(c => c.id === id);
-                if (item && item.steps[extraId]) {
-                    const stepContainer = document.getElementById('step-view');
-                    stepContainer.innerHTML = renderStepGuide(item, extraId);
-                    stepContainer.classList.add('active');
-                }
-                newUrl += "?id=" + id + "&step=" + extraId;
             }
 
-            // Update the browser URL without refreshing
             window.history.replaceState({view, id, extraId}, '', newUrl);
-            
-            setTimeout(() => { 
-                window.scrollTo(0, 0); 
-                lucide.createIcons(); 
-            }, 50); 
+            setTimeout(() => { window.scrollTo(0, 0); lucide.createIcons(); }, 50); 
         }
 
-        // LOAD FROM URL PARAMETERS
         window.onload = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const id = urlParams.get('id');
             const cat = urlParams.get('cat');
-            const step = urlParams.get('step');
-            
-            if (id) {
-                if (step !== null) navigate('step', id, step);
-                else navigate('article', id);
-            } else if (cat) {
-                navigate('category', cat);
-            } else {
-                navigate('home');
-            }
-        };
-
-        // HANDLE BROWSER BACK BUTTON
-        window.onpopstate = (event) => {
-            if (event.state) {
-                const {view, id, extraId} = event.state;
-                navigate(view, id, extraId);
-            } else {
-                navigate('home');
-            }
+            if (id) navigate('article', id);
+            else if (cat) navigate('category', cat);
+            else navigate('home');
         };
     </script>
 </body>
