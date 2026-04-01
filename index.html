@@ -220,6 +220,50 @@
         lucide.createIcons();
 
         const CONTENT = [
+            // NEW PRODUCT: Earn Online Solution
+            {
+                id: 'affiliate-marketing-system',
+                type: 'transformation',
+                category: 'earn',
+                badge: '💰 Proven Method',
+                title: 'Earn $100/Day From Home 💸',
+                subtitle: 'Simple beginner-friendly system to start earning online',
+                thumb: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800', // WFH Aesthetic
+                heroImg: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200',
+                hook: {
+                    headline: "Start Earning Online From Home 💸",
+                    subtext: "A simple step-by-step method beginners are using"
+                },
+                problemList: [
+                    "Tried earning online but failed?",
+                    "Too many confusing methods?",
+                    "Don’t know where to start?"
+                ],
+                trigger: "Feels like nothing works and everything is complicated…",
+                solutionIntro: "This beginner-friendly system simplifies everything",
+                methodSteps: [
+                    { title: "Step 1: Understand the basics", desc: "Learn the core foundation of digital growth." },
+                    { title: "Step 2: Follow a proven system", desc: "Copy exactly what is already working for others." },
+                    { title: "Step 3: Start earning step by step", desc: "Launch your method and see daily results." }
+                ],
+                transformation: [
+                    "First online income 💸",
+                    "Work from home",
+                    "No prior experience needed"
+                ],
+                trust: [
+                    "Used by beginners worldwide",
+                    "Simple and easy to follow",
+                    "No technical skills required"
+                ],
+                offerText: [
+                    "Access the full system here",
+                    "See how it works step by step",
+                    "Limited access available"
+                ],
+                cta: "See Full System",
+                link: "http://heikoboos.com/the-affiliate-marketing-school#aff=sueejejireeieb83"
+            },
             {
                 id: 'dark-spot-routine',
                 type: 'solution', 
@@ -455,7 +499,7 @@
                     <p class="text-gray-500 font-medium mb-8">${item.subtitle}</p>
                     <div class="mt-auto">
                         <span class="text-sm font-bold uppercase tracking-widest flex items-center justify-center md:justify-start gap-2 text-black">
-                            ${item.type === 'routine' || item.type === 'solution' ? 'See Full Routine' : (item.type === 'product' ? 'View Details' : 'Start Learning')} 
+                            ${item.category === 'earn' ? 'See Method' : (item.type === 'product' ? 'View Details' : 'See Full Routine')} 
                             <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-2 transition-transform"></i>
                         </span>
                     </div>
@@ -474,7 +518,7 @@
                 <div class="text-center mb-12">
                     <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-4 text-gray-900">${item.title}</h1>
                     <div class="bg-indigo-50 border border-indigo-100 p-8 rounded-[32px] shadow-sm">
-                        <h2 class="text-2xl font-bold text-indigo-900 mb-2">${item.hook.heading}</h2>
+                        <h2 class="text-2xl font-bold text-indigo-900 mb-2">${item.hook.heading || item.hook.headline}</h2>
                         <p class="text-lg text-indigo-700 font-medium">${item.hook.subtext}</p>
                     </div>
                 </div>
@@ -696,10 +740,30 @@
         }
 
         function renderTransformation(item) {
-            let benefitsHTML = item.benefits.map(b => `
+            // Updated renderer to support the new structured method steps and emotional triggers
+            const hasDetailedMethod = item.methodSteps && item.methodSteps.length > 0;
+            
+            let benefitsHTML = (item.benefits || item.transformation || []).map(b => `
                 <div class="flex items-start gap-4 mb-4">
                     <div class="mt-1 bg-green-100 p-1 rounded-full text-green-600"><i data-lucide="check" class="w-4 h-4 text-green-600 font-bold"></i></div>
                     <span class="text-lg font-medium text-gray-700">${b}</span>
+                </div>
+            `).join('');
+
+            let trustHTML = (item.trust || []).map(t => `
+                 <div class="flex items-start gap-4 mb-4">
+                    <div class="mt-1 bg-blue-100 p-1 rounded-full text-blue-600"><i data-lucide="shield-check" class="w-4 h-4 text-blue-600"></i></div>
+                    <span class="text-lg font-medium text-gray-700">${t}</span>
+                </div>
+            `).join('');
+
+            let methodHTML = (item.methodSteps || []).map((s, i) => `
+                <div class="flex items-start gap-5 p-6 bg-white border border-gray-100 rounded-[24px] shadow-sm mb-4">
+                    <span class="w-10 h-10 shrink-0 bg-indigo-600 text-white rounded-full flex items-center justify-center font-black">${i+1}</span>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-lg">${s.title}</h4>
+                        <p class="text-gray-500 font-medium">${s.desc}</p>
+                    </div>
                 </div>
             `).join('');
 
@@ -708,26 +772,58 @@
                     <button onclick="navigate('category', '${item.category}')" class="mb-8 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 hover:bg-gray-200 hover:text-black transition-colors w-fit btn-press">
                         <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to ${item.category}
                     </button>
-                    <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-[1.1]">${item.title}</h1>
+
+                    <!-- SECTION 1: HOOK -->
+                    <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-4 leading-[1.1]">${item.hook?.headline || item.title}</h1>
+                    <p class="text-xl md:text-2xl text-gray-500 font-bold mb-12">${item.hook?.subtext || item.subtitle}</p>
+
                     <img src="${item.heroImg}" class="w-full h-[300px] md:h-[400px] object-cover rounded-[40px] shadow-xl mb-12">
+
+                    <!-- SECTION 2 & 3: PROBLEM & EMOTIONAL TRIGGER -->
+                    <div class="bg-red-50 border-2 border-dashed border-red-200 p-8 rounded-[32px] mb-12">
+                         <h2 class="text-2xl font-black tracking-tighter mb-6 text-red-500">The Problem</h2>
+                         <ul class="space-y-4 mb-8">
+                             ${(item.problemList || [item.problem]).map(p => `<li class="text-lg font-bold text-red-800 flex items-start gap-3"><i data-lucide="x-circle" class="w-6 h-6 shrink-0 mt-0.5"></i> ${p}</li>`).join('')}
+                         </ul>
+                         <p class="text-xl md:text-2xl text-red-700 font-medium italic border-l-4 border-red-500 pl-6 py-2">"${item.trigger || item.story}"</p>
+                    </div>
+
                     <div class="prose max-w-none text-lg text-gray-600 leading-relaxed mb-12">
-                         <h2 class="text-2xl md:text-3xl font-black tracking-tighter mb-6 text-red-500">The Problem</h2>
-                        <p class="text-xl md:text-2xl text-gray-700 font-medium italic mb-10 border-l-4 border-red-500 pl-6 py-2">"${item.problem}"</p>
-                        <p class="mb-12">${item.story}</p>
                         <div class="bg-gray-900 text-white p-8 md:p-12 rounded-[40px] mb-12 shadow-2xl">
+                            <!-- SECTION 4: SOLUTION INTRO -->
                             <h2 class="text-2xl md:text-3xl font-black tracking-tighter mb-6 gradient-text">The Solution</h2>
                             <p class="text-lg text-gray-300 leading-relaxed mb-10">${item.solutionIntro}</p>
+                            
+                            <!-- SECTION 5: METHOD BREAKDOWN -->
+                            ${hasDetailedMethod ? `<div class="mb-10">${methodHTML}</div>` : ''}
+
+                            <!-- SECTION 6: TRANSFORMATION -->
                             <div class="bg-gray-800 rounded-3xl p-6 md:p-8 mb-10">
-                                <h3 class="text-lg md:text-xl font-bold mb-6 uppercase tracking-widest text-gray-400">What You Get:</h3>
+                                <h3 class="text-lg md:text-xl font-bold mb-6 uppercase tracking-widest text-gray-400">The Transformation:</h3>
                                 ${benefitsHTML}
                             </div>
+
+                            <!-- SECTION 7: TRUST -->
+                            ${item.trust ? `
+                            <div class="bg-gray-800 rounded-3xl p-6 md:p-8 mb-10">
+                                <h3 class="text-lg md:text-xl font-bold mb-6 uppercase tracking-widest text-gray-400">Why it works:</h3>
+                                ${trustHTML}
+                            </div>` : ''}
+
                             <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-2xl p-6 mb-10 flex gap-4 items-start">
                                 <i data-lucide="zap" class="w-6 h-6 text-yellow-500 shrink-0 mt-1"></i>
-                                <p class="text-yellow-500 font-bold text-sm md:text-base">${item.urgency}</p>
+                                <p class="text-yellow-500 font-bold text-sm md:text-base">${item.urgency || "Limited Access Available"}</p>
                             </div>
-                            <a href="${item.link}" target="_blank" class="block w-full text-center py-5 gradient-bg text-white rounded-full font-black text-lg md:text-xl shadow-lg hover:scale-[1.02] transition-transform btn-press">
-                                ${item.cta}
-                            </a>
+
+                            <!-- SECTION 8 & 9: OFFER & CTA -->
+                            <div class="space-y-4">
+                                <a href="${item.link}" target="_blank" class="block w-full text-center py-5 gradient-bg text-white rounded-full font-black text-lg md:text-xl shadow-lg hover:scale-[1.02] transition-transform btn-press">
+                                    ${item.cta || "See Full System"}
+                                </a>
+                                <a href="${item.link}" target="_blank" class="block w-full text-center py-4 bg-white/10 text-white rounded-full font-bold hover:bg-white/20 transition-all">
+                                    Start Now
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
