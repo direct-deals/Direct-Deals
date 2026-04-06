@@ -43,15 +43,31 @@
         }
                 /* ===== ADVANCED FEATURES ===== */
         /* Styles for the Search and Login/Newsletter popups */
+        /* Centered Overlay & Scroll Lock Fix */
         .custom-modal, #search-overlay { 
             display: none; 
-            position: fixed; 
-            inset: 0; 
-            background: rgba(0,0,0,0.65); 
-            backdrop-filter: blur(8px); 
-            z-index: 1000; 
+            position: fixed !important; 
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background: rgba(0, 0, 0, 0.8) !important; 
+            backdrop-filter: blur(12px); 
+            z-index: 99999 !important; 
             align-items: center; 
             justify-content: center; 
+            overflow: hidden;
+            touch-action: none;
+        }
+        /* Logic to freeze the background */
+        body.modal-open {
+            overflow: hidden !important;
+            height: 100vh !important;
+        }
+        /* Add this to lock the background body when modal is open */
+        body.modal-open {
+            overflow: hidden !important;
+            height: 100vh !important;
         }
         
         /* Triggers the display when the 'active' class is added via JavaScript */
@@ -59,13 +75,14 @@
         
         /* The container for your popup content */
         .modal-content { 
-            background: white; 
+            background: white !important; 
             border-radius: 32px; 
             width: 90%; 
-            max-width: 450px; 
-            padding: 32px; 
+            max-width: 420px; 
+            padding: 32px;
+            margin: auto !important; /* Forces perfect center */
             position: relative; 
-            box-shadow: 0 25px 60px rgba(0,0,0,0.2); 
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5); 
         }
 
         /* The floating Heart button on each product card */
@@ -113,7 +130,7 @@
             position: fixed; 
             bottom: 24px; 
             left: 50%; 
-            transform: translateX(-50%) translateY(100px); 
+            transform: translateX(-50%) translateY(200px); 
             background: #111827; 
             color: white; 
             padding: 12px 24px; 
@@ -349,10 +366,24 @@
             }
         }
 
-        // Modal close helper
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
+        // Use this to open ANY popup
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.classList.add('modal-open'); // FREEZES BACKGROUND
+            }
         }
+
+        // Use this to close ANY popup
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.classList.remove('modal-open'); // UNFREEZES BACKGROUND
+            }
+        }
+
 
 
         const CONTENT = [
@@ -361,6 +392,8 @@
                 id: 'affiliate-marketing-system',
                 type: 'transformation',
                 category: 'earn',
+                rating: 4.9,
+                reviewCount: 1240,
                 badge: '💰 Proven Method',
                 title: 'Earn $100/Day From Home 💸',
                 subtitle: 'Simple beginner-friendly system to start earning online',
@@ -404,6 +437,8 @@
                 id: 'dark-spot-routine',
                 type: 'solution', 
                 category: 'glow',
+                rating: 4.8,
+                reviewCount: 854,
                 badge: '✨ Viral Routine',
                 title: 'Dark Spot Removal Routine for Bright Skin ✨',
                 subtitle: 'Achieve clearer, glowing skin from home.',
@@ -446,6 +481,8 @@
                 id: 'cetaphil-cleanser',
                 type: 'product',
                 category: 'glow',
+                rating: 4.7,
+                reviewCount: 5420,
                 badge: '🧴 Essential Prep',
                 title: 'Cetaphil Gentle Skin Cleanser',
                 subtitle: 'Step 1 for clear and healthy skin',
@@ -465,6 +502,8 @@
                 id: 'full-skincare-routine',
                 type: 'routine',
                 category: 'glow',
+                rating: 4.9,
+                reviewCount: 312,
                 badge: '🏆 Master Guide',
                 title: 'The Ultimate Glass Skin Routine',
                 subtitle: 'From morning prep to night recovery.',
@@ -486,6 +525,8 @@
                 id: 'glow-boosting-oil',
                 type: 'routine',
                 category: 'glow',
+                rating: 4.8,
+                reviewCount: 1102,
                 badge: '💧 Must Have',
                 title: 'Glow Boosting Protocol',
                 subtitle: 'Achieve radiant skin in 3 simple steps.',
@@ -518,6 +559,8 @@
                 id: 'night-glow-routine',
                 type: 'routine',
                 category: 'glow',
+                rating: 4.9,
+                reviewCount: 765,
                 badge: '🔥 Trending',
                 title: 'Night Recovery System 😴',
                 subtitle: 'Repair and hydrate while you sleep.',
@@ -544,6 +587,8 @@
                 id: 'sun-protection',
                 type: 'routine',
                 category: 'glow',
+                rating: 4.7,
+                reviewCount: 2140,
                 badge: '⭐ Popular',
                 title: 'The Invisible Sun Shield ☀️',
                 subtitle: 'Zero white cast SPF 50 protection',
@@ -581,6 +626,8 @@
                 id: 'gua-sha-tool',
                 type: 'product',
                 category: 'glow',
+                rating: 4.6,
+                reviewCount: 890,
                 badge: '💎 Sculpt & Glow',
                 title: 'Gua Sha Facial Tool',
                 subtitle: 'The secret to a snatched, glowing face',
@@ -620,6 +667,21 @@
                 link: '#'
             }
         ];
+        // This function converts numbers into 5-star visuals
+        function renderStars(rating, count) {
+            let stars = '';
+            for(let i = 1; i <= 5; i++) {
+                // If the loop count is less than the rating, show a gold star, else show a grey star
+                stars += `<span class="star ${i <= Math.floor(rating) ? '' : 'empty'}">★</span>`;
+            }
+            return `
+                <div class="flex items-center gap-1.5 mt-2">
+                    <div class="flex text-amber-400">${stars}</div>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">
+                        (${count ? count.toLocaleString() : '100+'}) Reviews
+                    </span>
+                </div>`;
+        }
 
                 function createCardHTML(i) {
             const saved = wishlist.includes(i.id);
@@ -637,6 +699,7 @@
                 <div class="p-8" onclick="navigate('article','${i.id}')">
                     <h3 class="font-black text-xl mb-1 group-hover:text-purple-600 transition-colors">${i.title}</h3>
                     <p class="text-gray-400 text-sm mb-2">${i.subtitle}</p>
+                                        ${renderStars(i.rating || 5, i.reviewCount || 100)}
                     <div class="mt-6 flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
                         ${i.category === 'earn' ? 'See Method' : 'See Routine'} 
                         <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
@@ -717,9 +780,9 @@
                     <img src="${item.thumb}" class="w-40 h-40 object-cover rounded-3xl border border-gray-100 shadow-md">
                     <div class="flex-grow text-center md:text-left">
                         <p class="text-indigo-600 font-black uppercase tracking-widest text-sm mb-2">${item.productBlock.line}</p>
-                        <a href="${item.productBlock.link}" target="_blank" class="inline-flex items-center gap-3 bg-indigo-600 text-white px-10 py-5 rounded-full font-black text-xl hover:bg-indigo-700 transition-all btn-press shadow-lg shadow-indigo-200">
-                            ${item.productBlock.btnText} <i data-lucide="shopping-cart" class="w-6 h-6"></i>
-                        </a>
+                        <button onclick="pendingAction={url:'${item.productBlock.link}'}; openModal('news-modal')" class="inline-flex items-center gap-3 bg-indigo-600 text-white px-10 py-5 rounded-full font-black text-xl hover:bg-indigo-700 transition-all btn-press shadow-lg shadow-indigo-200">
+    ${item.productBlock.btnText} <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+</button>
                     </div>
                 </div>
 
@@ -774,9 +837,9 @@
                         </p>
 
                         <div class="space-y-4">
-                            <a href="${item.finalLink}" target="_blank" rel="noopener noreferrer" class="flex justify-center items-center gap-2 w-full bg-blue-600 text-white text-center font-black text-lg py-5 px-6 rounded-2xl shadow-lg hover:bg-blue-700 btn-press transition-all">
-                                ${item.finalCta} <i data-lucide="external-link" class="w-5 h-5"></i>
-                            </a>
+                            <button onclick="pendingAction={url:'${item.finalLink}'}; openModal('news-modal')" class="flex justify-center items-center gap-2 w-full bg-blue-600 text-white text-center font-black text-lg py-5 px-6 rounded-2xl shadow-lg hover:bg-blue-700 btn-press transition-all">
+    ${item.finalCta} <i data-lucide="external-link" class="w-5 h-5"></i>
+</button>
                         </div>
                     </div>
                 </div>
@@ -788,8 +851,8 @@
                 const isInternalLink = step.link && step.link.startsWith('internal:');
                 const isGuide = step.guide && !isInternalLink && step.link === '#';
                 
-                let btnTag = 'a';
-                let btnAction = `href="${step.link}" target="_blank"`;
+                let btnTag = 'button';
+                let btnAction = `onclick="pendingAction={url:'${step.link}'}; openModal('news-modal')"`;
                 
                 if (isInternalLink) {
                     btnTag = 'button';
@@ -870,9 +933,9 @@
                         </div>
                         <h2 class="text-2xl md:text-3xl font-black mb-4">Start Your Transformation</h2>
                         <p class="text-gray-600 font-medium mb-8">Follow this sequence daily for a consistent glass-skin glow.</p>
-                        <a href="${item.finalLink}" target="_blank" class="inline-block px-8 py-4 bg-black text-white rounded-full font-black text-lg uppercase tracking-widest shadow-xl hover:scale-105 transition-transform w-full md:w-auto btn-press">
-                            ${item.finalCta}
-                        </a>
+                        <button onclick="pendingAction={url:'${item.finalLink}'}; openModal('news-modal')" class="inline-block px-8 py-4 bg-black text-white rounded-full font-black text-lg uppercase tracking-widest shadow-xl hover:scale-105 transition-transform w-full md:w-auto btn-press">
+    ${item.finalCta}
+</button>
                     </div>
                 </div>
             `;
@@ -954,14 +1017,14 @@
                                 <p class="text-yellow-500 font-bold text-sm md:text-base">${item.urgency || "Limited Access Available"}</p>
                             </div>
 
-                            <!-- SECTION 8 & 9: OFFER & CTA -->
                             <div class="space-y-4">
-                                <a href="${item.link}" target="_blank" class="block w-full text-center py-5 gradient-bg text-white rounded-full font-black text-lg md:text-xl shadow-lg hover:scale-[1.02] transition-transform btn-press">
+                                <button onclick="pendingAction={url:'${item.link}'}; openModal('news-modal')" class="block w-full text-center py-5 gradient-bg text-white rounded-full font-black text-lg md:text-xl shadow-lg hover:scale-[1.02] transition-transform btn-press">
                                     ${item.cta || "See Full System"}
-                                </a>
-                                <a href="${item.link}" target="_blank" class="block w-full text-center py-4 bg-white/10 text-white rounded-full font-bold hover:bg-white/20 transition-all">
+                                </button>
+                                
+                                <button onclick="pendingAction={url:'${item.link}'}; openModal('news-modal')" class="block w-full text-center py-4 bg-white/10 text-white rounded-full font-bold hover:bg-white/20 transition-all">
                                     Start Now
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -998,6 +1061,15 @@
                     articleContainer.classList.add('active');
                 }
                 newUrl += "?id=" + id;
+            } else if (view === 'wishlist') {
+                const grid = document.getElementById('category-grid');
+                document.getElementById('cat-title').innerText = 'Your Wishlist ❤️';
+                document.getElementById('cat-desc').innerText = 'Items you have saved for later.';
+                const savedItems = CONTENT.filter(c => wishlist.includes(c.id));
+                grid.innerHTML = savedItems.length > 0 
+                    ? savedItems.map(createCardHTML).join('') 
+                    : '<div class="col-span-full text-center py-20 text-gray-400 font-bold">Your wishlist is empty. ❤️</div>';
+                document.getElementById('category-view').classList.add('active');
             }
 
             window.history.replaceState({view, id, extraId}, '', newUrl);
@@ -1034,9 +1106,19 @@
                 user = { name, email }; localStorage.setItem('dd_user', JSON.stringify(user));
                 closeModal('login-modal'); if(pendingAction?.type === 'wish') handleWishlist(pendingAction.id);
             } else {
+                // User has joined the list
                 localStorage.setItem('dd_sub', 'true');
-                closeModal('news-modal'); if(pendingAction?.url) window.open(pendingAction.url, '_blank');
+                
+                // Close the popup and unlock the scroll
+                closeModal('news-modal'); 
+                
+                // If they were trying to visit a product, open it now!
+                if (pendingAction && pendingAction.url) {
+                    window.open(pendingAction.url, '_blank');
+                    pendingAction = null; // Reset it for the next click
+                }
             }
+
             showToast('Success!'); updateState();
         }
 
