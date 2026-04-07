@@ -342,8 +342,7 @@ body.modal-open {
     // YOUR GOOGLE SHEET APPS SCRIPT URL
     const DATABASE_URL = "https://script.google.com/macros/s/AKfycbwA3p5Vlsql9O8efUDr0QE4Uum26V2ttMU58FQ2jygTe1k5ucvG0niSmDlMUW572gdsIQ/exec";
    // Add this temporary line to wipe memory on every reload!
-    localStorage.clear();
-
+    
     // State tracking
     let user = JSON.parse(localStorage.getItem('dd_user') || 'null');
     let wishlist = JSON.parse(localStorage.getItem('dd_wishlist') || '[]');
