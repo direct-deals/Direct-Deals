@@ -44,46 +44,47 @@
                 /* ===== ADVANCED FEATURES ===== */
         /* Styles for the Search and Login/Newsletter popups */
         /* Centered Overlay & Scroll Lock Fix */
-        .custom-modal, #search-overlay { 
-            display: none; 
-            position: fixed !important; 
-            top: 0 !important;
-            left: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            background: rgba(0, 0, 0, 0.8) !important; 
-            backdrop-filter: blur(12px); 
-            z-index: 99999 !important; 
-            align-items: center; 
-            justify-content: center; 
-            overflow: hidden;
-            touch-action: none;
-        }
-        /* Logic to freeze the background */
-        body.modal-open {
-            overflow: hidden !important;
-            height: 100vh !important;
-        }
-        /* Add this to lock the background body when modal is open */
-        body.modal-open {
-            overflow: hidden !important;
-            height: 100vh !important;
-        }
-        
-        /* Triggers the display when the 'active' class is added via JavaScript */
-        .custom-modal.active, #search-overlay.active { display: flex; }
-        
-        /* The container for your popup content */
-        .modal-content { 
-            background: white !important; 
-            border-radius: 32px; 
-            width: 90%; 
-            max-width: 420px; 
-            padding: 32px;
-            margin: auto !important; /* Forces perfect center */
-            position: relative; 
-            box-shadow: 0 25px 60px rgba(0,0,0,0.5); 
-        }
+        /* MODALS + SEARCH OVERLAY */
+.custom-modal,
+#search-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(12px);
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    touch-action: auto !important; /* Ensures you can still tap inside the popup */
+}
+
+.custom-modal.active,
+#search-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 32px;
+    width: min(90%, 420px);
+    padding: 32px;
+    margin: auto;
+    position: relative;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    max-height: calc(100dvh - 32px);
+    overflow-y: auto;
+}
+
+/* Freeze background SAFELY without shifting the page */
+body.modal-open {
+    overflow: hidden !important;
+    touch-action: none !important; /* Stops the background swipe */
+}
 
         /* The floating Heart button on each product card */
         .wishlist-btn { 
@@ -150,7 +151,7 @@
 <body class="antialiased overflow-x-hidden">
 
     <!-- MAIN NAVIGATION BAR -->
-    <n    <nav class="sticky top-0 z-50 glass-card transition-all duration-300">
+       <nav class="sticky top-0 z-50 glass-card transition-all duration-300">
         <div class="max-w-screen-xl mx-auto px-4 md:px-8 h-20 flex items-center justify-between gap-4">
             <div class="cursor-pointer flex items-center gap-3 shrink-0" onclick="navigate('home')">
                 <img src="https://raw.githubusercontent.com/direct-deals/Direct-Deals/main/1774086383545.png" alt="Direct Deals Logo" class="w-12 h-12 rounded-full object-cover shadow-sm border border-gray-100">
@@ -331,60 +332,101 @@
             </div>
         </div>
         <div class="max-w-screen-xl mx-auto mt-16 pt-8 border-t border-gray-800 text-center text-gray-500 text-xs font-bold uppercase tracking-widest">
-            © 2024 Direct Deals • All Rights Reserved
+            &copy; 2024 Direct Deals • All Rights Reserved
         </div>
     </footer>
 
     <script>
-              lucide.createIcons();
-
-        // YOUR GOOGLE SHEET APPS SCRIPT URL
-        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbwA3p5Vlsql9O8efUDr0QE4Uum26V2ttMU58FQ2jygTe1k5ucvG0niSmDlMUW572gdsIQ/exec"; 
-
-        // State tracking
-        let user = JSON.parse(localStorage.getItem('dd_user') || 'null');
-        let wishlist = JSON.parse(localStorage.getItem('dd_wishlist') || '[]');
-        let pendingAction = null;
-
-        // Visual helper for wishlist badge and icons
-        function updateState() {
-            const badge = document.getElementById('wish-badge');
-            if (badge) {
-                badge.innerText = wishlist.length;
-                badge.classList.toggle('visible', wishlist.length > 0);
-            }
             lucide.createIcons();
+
+    // YOUR GOOGLE SHEET APPS SCRIPT URL
+    const DATABASE_URL = "https://script.google.com/macros/s/AKfycbwA3p5Vlsql9O8efUDr0QE4Uum26V2ttMU58FQ2jygTe1k5ucvG0niSmDlMUW572gdsIQ/exec";
+
+    // State tracking
+    let user = JSON.parse(localStorage.getItem('dd_user') || 'null');
+    let wishlist = JSON.parse(localStorage.getItem('dd_wishlist') || '[]');
+    let pendingAction = null;
+    let savedScrollY = 0;
+
+    function hasAnyActiveOverlay() {
+        const activeModal = document.querySelector('.custom-modal.active');
+        const searchOverlay = document.getElementById('search-overlay');
+        const searchActive = searchOverlay && searchOverlay.classList.contains('active');
+        return !!activeModal || !!searchActive;
+    }
+
+        function lockBodyScroll() {
+        if (document.body.classList.contains('modal-open')) return;
+        document.body.classList.add('modal-open');
+    }
+
+    function unlockBodyScroll() {
+        if (hasAnyActiveOverlay()) return;
+        document.body.classList.remove('modal-open');
+    }
+
+    function updateState() {
+        const badge = document.getElementById('wish-badge');
+        if (badge) {
+            badge.innerText = wishlist.length;
+            badge.classList.toggle('visible', wishlist.length > 0);
         }
+        lucide.createIcons();
+    }
 
-        // Helper to show the slide-up notification
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            if (t) {
-                t.textContent = msg;
-                t.classList.add('show');
-                setTimeout(() => t.classList.remove('show'), 2500);
-            }
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        if (!t) return;
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function runPendingAction(preOpenedTab = null) {
+        if (!pendingAction || !pendingAction.url) return;
+        const url = pendingAction.url;
+        pendingAction = null;
+        if (preOpenedTab && !preOpenedTab.closed) {
+            preOpenedTab.location.href = url;
+        } else {
+            window.open(url, '_blank', 'noopener,noreferrer');
         }
+    }
 
-        // Use this to open ANY popup
-        function openModal(id) {
-            const modal = document.getElementById(id);
-            if (modal) {
-                modal.classList.add('active');
-                document.body.classList.add('modal-open'); // FREEZES BACKGROUND
-            }
-        }
+    function openModal(id) {
+        const modal = document.getElementById(id);
+        if (!modal) return;
+        modal.classList.add('active');
+        lockBodyScroll();
+    }
 
-        // Use this to close ANY popup
-        function closeModal(id) {
-            const modal = document.getElementById(id);
-            if (modal) {
-                modal.classList.remove('active');
-                document.body.classList.remove('modal-open'); // UNFREEZES BACKGROUND
-            }
-        }
+    function closeModal(id) {
+        const modal = document.getElementById(id);
+        if (!modal) return;
+        modal.classList.remove('active');
+        unlockBodyScroll();
+    }
 
+    function closeNewsModalAndContinue() {
+        closeModal('news-modal');
+        runPendingAction();
+    }
 
+    function openSearch() {
+        const overlay = document.getElementById('search-overlay');
+        if (!overlay) return;
+        overlay.classList.add('active');
+        lockBodyScroll();
+        const input = document.getElementById('search-input');
+        if (input) input.focus();
+    }
+
+    function closeSearch() {
+        const overlay = document.getElementById('search-overlay');
+        if (!overlay) return;
+        overlay.classList.remove('active');
+        unlockBodyScroll();
+    }
 
         const CONTENT = [
             // NEW PRODUCT: Earn Online Solution
@@ -1084,68 +1126,130 @@
             else if (cat) navigate('category', cat);
             else navigate('home');
         };
-                async function submitToSheet(type) {
+            async function submitToSheet(type) {
             const btn = document.getElementById(type + '-btn');
-            const email = type === 'login' ? document.getElementById('auth-email').value : document.getElementById('news-email').value;
-            const name = type === 'login' ? document.getElementById('auth-name').value : "Subscriber";
-            const pass = type === 'login' ? document.getElementById('auth-pass').value : document.getElementById('news-pass').value;
+            const email = type === 'login'
+            ? document.getElementById('auth-email').value.trim()
+            : document.getElementById('news-email').value.trim();
 
-            if(!email.includes('@')) { showToast('Invalid Email'); return; }
-            btn.innerText = "Processing...";
+        const name = type === 'login'
+            ? document.getElementById('auth-name').value.trim()
+            : "Subscriber";
 
-            try {
-                await fetch(DATABASE_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ name, email, password: pass, type, date: new Date().toISOString() })
-                });
-            } catch(e) { /* silent error handling for no-cors */ }
+        const pass = type === 'login'
+            ? document.getElementById('auth-pass').value.trim()
+            : document.getElementById('news-pass').value.trim();
 
-            if(type === 'login') {
-                user = { name, email }; localStorage.setItem('dd_user', JSON.stringify(user));
-                closeModal('login-modal'); if(pendingAction?.type === 'wish') handleWishlist(pendingAction.id);
-            } else {
-                // User has joined the list
-                localStorage.setItem('dd_sub', 'true');
-                
-                // Close the popup and unlock the scroll
-                closeModal('news-modal'); 
-                
-                // If they were trying to visit a product, open it now!
-                if (pendingAction && pendingAction.url) {
-                    window.open(pendingAction.url, '_blank');
-                    pendingAction = null; // Reset it for the next click
-                }
+        if (!email || !email.includes('@')) {
+            showToast('Invalid Email');
+            return;
+        }
+
+        let pendingTab = null;
+
+        // Open blank tab before async call to reduce popup blocking on submit
+        if (type === 'news' && pendingAction && pendingAction.url) {
+            pendingTab = window.open('', '_blank', 'noopener,noreferrer');
+        }
+
+        if (btn) btn.innerText = "Processing...";
+
+        try {
+            await fetch(DATABASE_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password: pass,
+                    type,
+                    date: new Date().toISOString()
+                })
+            });
+        } catch (e) {
+            // silent error handling for no-cors
+        }
+
+        if (type === 'login') {
+            user = { name, email };
+            localStorage.setItem('dd_user', JSON.stringify(user));
+            closeModal('login-modal');
+
+            if (pendingAction?.type === 'wish') {
+                const wishId = pendingAction.id;
+                pendingAction = null;
+                handleWishlist(wishId);
             }
-
-            showToast('Success!'); updateState();
+        } else {
+            localStorage.setItem('dd_sub', 'true');
+            closeModal('news-modal');
+            runPendingAction(pendingTab);
         }
 
-        function handleWishlist(id, e) {
-            if(e) e.stopPropagation();
-            if(!user) { pendingAction = {type:'wish', id}; document.getElementById('login-modal').classList.add('active'); return; }
-            wishlist = wishlist.includes(id) ? wishlist.filter(x => x !== id) : [...wishlist, id];
-            localStorage.setItem('dd_wishlist', JSON.stringify(wishlist));
-            updateState();
-            showToast(wishlist.includes(id) ? '❤️ Saved to Wishlist' : 'Removed');
+        if (btn) {
+            btn.innerText = type === 'login' ? 'Unlock Wishlist' : 'Unlock Now';
         }
 
-        function handleSearch(q) {
-            const res = document.getElementById('search-results');
-            if(!q) { res.innerHTML = ''; return; }
-            const match = CONTENT.filter(i => i.title.toLowerCase().includes(q.toLowerCase()));
-            res.innerHTML = match.map(m => `
-                <div onclick="closeSearch(); navigate('article','${m.id}')" class="flex items-center gap-4 p-4 hover:bg-gray-50 rounded-2xl cursor-pointer border border-transparent hover:border-purple-100 transition-all">
-                    <img src="${m.thumb}" class="w-12 h-12 rounded-lg object-cover">
-                    <div><p class="font-bold text-sm text-gray-900">${m.title}</p></div>
-                </div>`).join('') || '<p class="text-center py-4 text-gray-400">No match found</p>';
+        showToast('Success!');
+        updateState();
+    }
+
+    function handleWishlist(id, e) {
+        if (e) e.stopPropagation();
+
+        if (!user) {
+            pendingAction = { type: 'wish', id };
+            openModal('login-modal');
+            return;
         }
 
-        function openSearch() { document.getElementById('search-overlay').classList.add('active'); document.getElementById('search-input').focus(); }
-        function closeSearch() { document.getElementById('search-overlay').classList.remove('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function showToast(m) { const t = document.getElementById('toast'); t.innerText = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+        wishlist = wishlist.includes(id)
+            ? wishlist.filter(x => x !== id)
+            : [...wishlist, id];
+
+        localStorage.setItem('dd_wishlist', JSON.stringify(wishlist));
+        updateState();
+        showToast(wishlist.includes(id) ? '❤️ Saved to Wishlist' : 'Removed');
+    }
+
+    function handleSearch(q) {
+        const res = document.getElementById('search-results');
+        if (!res) return;
+
+        if (!q) {
+            res.innerHTML = '';
+            return;
+        }
+
+        const match = CONTENT.filter(i =>
+            i.title.toLowerCase().includes(q.toLowerCase())
+        );
+
+        res.innerHTML = match.map(m => `
+            <div onclick="closeSearch(); navigate('article','${m.id}')" class="flex items-center gap-4 p-4 hover:bg-gray-50 rounded-2xl cursor-pointer border border-transparent hover:border-purple-100 transition-all">
+                <img src="${m.thumb}" class="w-12 h-12 rounded-lg object-cover">
+                <div><p class="font-bold text-sm text-gray-900">${m.title}</p></div>
+            </div>
+        `).join('') || '<p class="text-center py-4 text-gray-400">No match found</p>';
+    }
+
+    // ESC key closes active overlays
+    document.addEventListener('keydown', function(e) {
+        if (e.key !== 'Escape') return;
+
+        const newsModal = document.getElementById('news-modal');
+        const loginModal = document.getElementById('login-modal');
+        const searchOverlay = document.getElementById('search-overlay');
+
+        if (newsModal && newsModal.classList.contains('active')) {
+            closeNewsModalAndContinue();
+        } else if (loginModal && loginModal.classList.contains('active')) {
+            closeModal('login-modal');
+        } else if (searchOverlay && searchOverlay.classList.contains('active')) {
+            closeSearch();
+        }
+    });
 
     </script>
         <div id="toast">✓ Success</div>
@@ -1169,7 +1273,7 @@
 
     <div id="news-modal" class="custom-modal">
         <div class="modal-content text-center">
-            <button onclick="closeModal('news-modal')" class="absolute top-5 right-5 text-gray-400" style="background:none;border:none;font-size:20px;cursor:pointer">✕</button>
+            <button onclick="closeNewsModalAndContinue()" class="absolute top-5 right-5 text-gray-400" style="background:none;border:none;font-size:20px;cursor:pointer">✕</button>
             <h2 class="text-2xl font-black mb-2 tracking-tight">Unlock Method 🔓</h2>
             <p class="text-gray-500 text-sm mb-6">Set a private code to unlock this verified method and get our top direct deals.</p>
             <div class="space-y-4">
