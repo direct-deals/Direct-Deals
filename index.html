@@ -341,6 +341,7 @@ body.modal-open {
 
     // YOUR GOOGLE SHEET APPS SCRIPT URL
     const DATABASE_URL = "https://script.google.com/macros/s/AKfycbwA3p5Vlsql9O8efUDr0QE4Uum26V2ttMU58FQ2jygTe1k5ucvG0niSmDlMUW572gdsIQ/exec";
+   // Add this temporary line to wipe memory on every reload!
 
     // State tracking
     let user = JSON.parse(localStorage.getItem('dd_user') || 'null');
@@ -390,6 +391,18 @@ body.modal-open {
             preOpenedTab.location.href = url;
         } else {
             window.open(url, '_blank', 'noopener,noreferrer');
+        }
+    }
+        function handleAffiliateClick(url) {
+        const isSubscribed = localStorage.getItem('dd_sub') === 'true';
+        
+        if (isSubscribed) {
+            // They already subscribed! Send them straight to the link.
+            window.open(url, '_blank', 'noopener,noreferrer');
+        } else {
+            // Not subscribed yet. Save the link and open the popup.
+            pendingAction = { url: url };
+            openModal('news-modal');
         }
     }
 
@@ -822,7 +835,7 @@ body.modal-open {
                     <img src="${item.thumb}" class="w-40 h-40 object-cover rounded-3xl border border-gray-100 shadow-md">
                     <div class="flex-grow text-center md:text-left">
                         <p class="text-indigo-600 font-black uppercase tracking-widest text-sm mb-2">${item.productBlock.line}</p>
-                        <button onclick="pendingAction={url:'${item.productBlock.link}'}; openModal('news-modal')" class="inline-flex items-center gap-3 bg-indigo-600 text-white px-10 py-5 rounded-full font-black text-xl hover:bg-indigo-700 transition-all btn-press shadow-lg shadow-indigo-200">
+                        <button onclick="handleAffiliateClick('${item.productBlock.link}')" class="inline-flex items-center gap-3 bg-indigo-600 text-white px-10 py-5 rounded-full font-black text-xl hover:bg-indigo-700 transition-all btn-press shadow-lg shadow-indigo-200">
     ${item.productBlock.btnText} <i data-lucide="shopping-cart" class="w-6 h-6"></i>
 </button>
                     </div>
@@ -879,7 +892,7 @@ body.modal-open {
                         </p>
 
                         <div class="space-y-4">
-                            <button onclick="pendingAction={url:'${item.finalLink}'}; openModal('news-modal')" class="flex justify-center items-center gap-2 w-full bg-blue-600 text-white text-center font-black text-lg py-5 px-6 rounded-2xl shadow-lg hover:bg-blue-700 btn-press transition-all">
+                            <button onclick="handleAffiliateClick('${item.finalLink}')" class="flex justify-center items-center gap-2 w-full bg-blue-600 text-white text-center font-black text-lg py-5 px-6 rounded-2xl shadow-lg hover:bg-blue-700 btn-press transition-all">
     ${item.finalCta} <i data-lucide="external-link" class="w-5 h-5"></i>
 </button>
                         </div>
@@ -894,7 +907,7 @@ body.modal-open {
                 const isGuide = step.guide && !isInternalLink && step.link === '#';
                 
                 let btnTag = 'button';
-                let btnAction = `onclick="pendingAction={url:'${step.link}'}; openModal('news-modal')"`;
+                let btnAction = `onclick="handleAffiliateClick('${step.link}')"`;
                 
                 if (isInternalLink) {
                     btnTag = 'button';
@@ -975,7 +988,7 @@ body.modal-open {
                         </div>
                         <h2 class="text-2xl md:text-3xl font-black mb-4">Start Your Transformation</h2>
                         <p class="text-gray-600 font-medium mb-8">Follow this sequence daily for a consistent glass-skin glow.</p>
-                        <button onclick="pendingAction={url:'${item.finalLink}'}; openModal('news-modal')" class="inline-block px-8 py-4 bg-black text-white rounded-full font-black text-lg uppercase tracking-widest shadow-xl hover:scale-105 transition-transform w-full md:w-auto btn-press">
+                        <button onclick="handleAffiliateClick('${item.finalLink}')" class="inline-block px-8 py-4 bg-black text-white rounded-full font-black text-lg uppercase tracking-widest shadow-xl hover:scale-105 transition-transform w-full md:w-auto btn-press">
     ${item.finalCta}
 </button>
                     </div>
@@ -1060,11 +1073,11 @@ body.modal-open {
                             </div>
 
                             <div class="space-y-4">
-                                <button onclick="pendingAction={url:'${item.link}'}; openModal('news-modal')" class="block w-full text-center py-5 gradient-bg text-white rounded-full font-black text-lg md:text-xl shadow-lg hover:scale-[1.02] transition-transform btn-press">
+                                <button onclick="handleAffiliateClick('${item.link}')" class="block w-full text-center py-5 gradient-bg text-white rounded-full font-black text-lg md:text-xl shadow-lg hover:scale-[1.02] transition-transform btn-press">
                                     ${item.cta || "See Full System"}
                                 </button>
                                 
-                                <button onclick="pendingAction={url:'${item.link}'}; openModal('news-modal')" class="block w-full text-center py-4 bg-white/10 text-white rounded-full font-bold hover:bg-white/20 transition-all">
+                                <button onclick="handleAffiliateClick('${item.link}')" class="block w-full text-center py-4 bg-white/10 text-white rounded-full font-bold hover:bg-white/20 transition-all">
                                     Start Now
                                 </button>
                             </div>
